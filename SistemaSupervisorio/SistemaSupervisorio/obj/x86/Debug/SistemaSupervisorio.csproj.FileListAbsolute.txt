@@ -1,0 +1,7 @@
+D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\bin\Debug\SistemaSupervisorio.exe
+D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\bin\Debug\SistemaSupervisorio.pdb
+D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\SistemaSupervisorio.csproj.GenerateResource.Cache
+D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\SistemaSupervisorio.exe
+D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\SistemaSupervisorio.pdb
+D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\WindowsFormsApplication1.FormularioPrincipal.resources
