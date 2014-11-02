@@ -66,7 +66,6 @@
             this.canoInferiorPrimario = new System.Windows.Forms.FlowLayoutPanel();
             this.roscaCentralInforior = new System.Windows.Forms.FlowLayoutPanel();
             this.motorDesligamento = new System.Windows.Forms.FlowLayoutPanel();
-            this.internalMotor = new System.Windows.Forms.GroupBox();
             this.bombaAgua = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
@@ -83,6 +82,12 @@
             this.painelAtualizarSerial = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.botaoAtualizarSerial = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.botaoAtivar = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
             this.painelConfiguracaoSerial.SuspendLayout();
             this.painelStatus.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -93,18 +98,19 @@
             this.painelPortaSerial.SuspendLayout();
             this.painelCaixaAguaSuperior.SuspendLayout();
             this.painelCaixaAguaInferior.SuspendLayout();
-            this.motorDesligamento.SuspendLayout();
             this.painelLigarMotor.SuspendLayout();
             this.painelBomba.SuspendLayout();
             this.painelNivelRecipienteSuperior.SuspendLayout();
             this.painelRecipienteInferior.SuspendLayout();
             this.painelAtualizarSerial.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLigado
             // 
             this.btnLigado.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLigado.BackgroundImage")));
             this.btnLigado.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnLigado.Image = global::WindowsFormsApplication1.Properties.Resources.conectar;
             this.btnLigado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLigado.ImageKey = "(none)";
             this.btnLigado.Location = new System.Drawing.Point(28, 471);
@@ -497,21 +503,10 @@
             // motorDesligamento
             // 
             this.motorDesligamento.BackColor = System.Drawing.Color.Yellow;
-            this.motorDesligamento.Controls.Add(this.internalMotor);
             this.motorDesligamento.Location = new System.Drawing.Point(682, 544);
             this.motorDesligamento.Name = "motorDesligamento";
             this.motorDesligamento.Size = new System.Drawing.Size(165, 100);
             this.motorDesligamento.TabIndex = 16;
-            // 
-            // internalMotor
-            // 
-            this.internalMotor.BackColor = System.Drawing.Color.Yellow;
-            this.internalMotor.ForeColor = System.Drawing.Color.Coral;
-            this.internalMotor.Location = new System.Drawing.Point(3, 3);
-            this.internalMotor.Name = "internalMotor";
-            this.internalMotor.Size = new System.Drawing.Size(153, 87);
-            this.internalMotor.TabIndex = 25;
-            this.internalMotor.TabStop = false;
             // 
             // bombaAgua
             // 
@@ -605,7 +600,7 @@
             // 
             // nivelSuperiorText
             // 
-            this.nivelSuperiorText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.nivelSuperiorText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.nivelSuperiorText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.nivelSuperiorText.Location = new System.Drawing.Point(112, 22);
             this.nivelSuperiorText.Name = "nivelSuperiorText";
@@ -640,7 +635,7 @@
             // 
             // nivelInferiorText
             // 
-            this.nivelInferiorText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.nivelInferiorText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.nivelInferiorText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.nivelInferiorText.Location = new System.Drawing.Point(119, 19);
             this.nivelInferiorText.Name = "nivelInferiorText";
@@ -666,9 +661,9 @@
             this.painelAtualizarSerial.Controls.Add(this.botaoAtualizarSerial);
             this.painelAtualizarSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.painelAtualizarSerial.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.painelAtualizarSerial.Location = new System.Drawing.Point(16, 561);
+            this.painelAtualizarSerial.Location = new System.Drawing.Point(16, 547);
             this.painelAtualizarSerial.Name = "painelAtualizarSerial";
-            this.painelAtualizarSerial.Size = new System.Drawing.Size(348, 100);
+            this.painelAtualizarSerial.Size = new System.Drawing.Size(354, 71);
             this.painelAtualizarSerial.TabIndex = 25;
             this.painelAtualizarSerial.TabStop = false;
             this.painelAtualizarSerial.Text = "Portas Seriais";
@@ -677,7 +672,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(12, 46);
+            this.label7.Location = new System.Drawing.Point(25, 31);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(165, 15);
             this.label7.TabIndex = 1;
@@ -688,7 +683,7 @@
             this.botaoAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.BackgroundImage")));
             this.botaoAtualizarSerial.Image = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.Image")));
             this.botaoAtualizarSerial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.botaoAtualizarSerial.Location = new System.Drawing.Point(206, 33);
+            this.botaoAtualizarSerial.Location = new System.Drawing.Point(208, 17);
             this.botaoAtualizarSerial.Name = "botaoAtualizarSerial";
             this.botaoAtualizarSerial.Size = new System.Drawing.Size(116, 40);
             this.botaoAtualizarSerial.TabIndex = 0;
@@ -697,6 +692,61 @@
             this.botaoAtualizarSerial.UseVisualStyleBackColor = true;
             this.botaoAtualizarSerial.Click += new System.EventHandler(this.botaoAtualizarSerial_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox3.BackgroundImage")));
+            this.groupBox3.Controls.Add(this.botaoAtivar);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox3.Location = new System.Drawing.Point(16, 624);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(354, 72);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Ligar Sistema Embarcado";
+            // 
+            // botaoAtivar
+            // 
+            this.botaoAtivar.BackColor = System.Drawing.Color.Red;
+            this.botaoAtivar.Enabled = false;
+            this.botaoAtivar.Image = ((System.Drawing.Image)(resources.GetObject("botaoAtivar.Image")));
+            this.botaoAtivar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.botaoAtivar.Location = new System.Drawing.Point(106, 25);
+            this.botaoAtivar.Name = "botaoAtivar";
+            this.botaoAtivar.Size = new System.Drawing.Size(146, 40);
+            this.botaoAtivar.TabIndex = 0;
+            this.botaoAtivar.Text = "Desligado";
+            this.botaoAtivar.UseVisualStyleBackColor = false;
+            this.botaoAtivar.Click += new System.EventHandler(this.botaoAtivar_Click);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(710, 544);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(23, 100);
+            this.flowLayoutPanel1.TabIndex = 27;
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(778, 544);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(23, 100);
+            this.flowLayoutPanel2.TabIndex = 28;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(1120, 544);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(23, 100);
+            this.flowLayoutPanel3.TabIndex = 29;
+            // 
+            // flowLayoutPanel6
+            // 
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(1205, 544);
+            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(23, 100);
+            this.flowLayoutPanel6.TabIndex = 30;
+            // 
             // FormularioPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -704,7 +754,12 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1370, 694);
+            this.ClientSize = new System.Drawing.Size(1370, 708);
+            this.Controls.Add(this.flowLayoutPanel6);
+            this.Controls.Add(this.flowLayoutPanel3);
+            this.Controls.Add(this.flowLayoutPanel2);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.painelAtualizarSerial);
             this.Controls.Add(this.painelRecipienteInferior);
             this.Controls.Add(this.painelNivelRecipienteSuperior);
@@ -750,7 +805,6 @@
             this.painelPortaSerial.PerformLayout();
             this.painelCaixaAguaSuperior.ResumeLayout(false);
             this.painelCaixaAguaInferior.ResumeLayout(false);
-            this.motorDesligamento.ResumeLayout(false);
             this.painelLigarMotor.ResumeLayout(false);
             this.painelBomba.ResumeLayout(false);
             this.painelNivelRecipienteSuperior.ResumeLayout(false);
@@ -759,6 +813,7 @@
             this.painelRecipienteInferior.PerformLayout();
             this.painelAtualizarSerial.ResumeLayout(false);
             this.painelAtualizarSerial.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -816,10 +871,15 @@
         public System.Windows.Forms.Label lblNivelSuperior;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox nivelInferiorText;
-        private System.Windows.Forms.GroupBox internalMotor;
         private System.Windows.Forms.GroupBox painelAtualizarSerial;
         private System.Windows.Forms.Button botaoAtualizarSerial;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button botaoAtivar;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
     }
 }
 

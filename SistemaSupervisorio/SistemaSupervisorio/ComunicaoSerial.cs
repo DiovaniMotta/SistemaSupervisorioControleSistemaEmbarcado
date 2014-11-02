@@ -44,6 +44,8 @@ namespace WindowsFormsApplication1
         // constantes responsavel por informar ao dispositivo serial que sera aberto ou fechada a comunicação
         public static String ABRIR_COMUNICACAO = "A";
         public static String FECHAR_COMUNICACAO = "F";
+        public static String START = "L";
+        public static String RESET = "l";
         // constantes responsaveis por representar se a instrução a seguir será enviada para o motor ou para a bomba
         public static String LIGAR_BOMBA = "B";
         public static String LIGAR_MOTOR = "M";
@@ -287,6 +289,14 @@ namespace WindowsFormsApplication1
             else if(hardware.Equals(DESLIGAR_MOTOR))
             {
                 this.writeSerial(DESLIGAR_MOTOR);
+            }
+            else if(hardware.Equals(START))
+            {
+                this.writeSerial(START);
+            }
+            else if(hardware.Equals(RESET))
+            {
+                this.writeSerial(RESET);
             }
         }
 

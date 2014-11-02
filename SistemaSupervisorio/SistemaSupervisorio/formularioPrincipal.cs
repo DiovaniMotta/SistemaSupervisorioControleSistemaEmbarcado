@@ -136,12 +136,9 @@ namespace WindowsFormsApplication1
                     MessageBox.Show("Conexão realizada com sucesso!","Confirmação");
                     botaoMotor.Enabled = true;
                     botaoBomba.Enabled = true;
+                    botaoAtivar.Enabled = true;
                     //encerro a comunicacao serial
-                    comunicacao.closedSerial();
-                    //inicializo a execução da thread
-                    thread = new Thread(new ThreadStart(loadNivel));
-                    thread.Start();
-                    
+                    comunicacao.closedSerial();             
                 }
                 else
                 {
@@ -175,15 +172,17 @@ namespace WindowsFormsApplication1
                     conexao.Text = "Desconectado";
                     conexao.BackColor = Color.Red;
                     // encerro a execução da conexao
-                    //this.closed();
                     // desabilito os botoes da bomba e motor
                     botaoBomba.Enabled = false;
                     botaoMotor.Enabled = false;
+                    botaoAtivar.Enabled = false;
 
                     botaoMotor.BackColor = Color.Red;
                     botaoBomba.BackColor = Color.Red;
+                    botaoAtivar.BackColor = Color.Red;
                     botaoBomba.Text = "Desligado";
                     botaoMotor.Text = "Desligado";
+                    botaoAtivar.Text = "Desligado";
                     MessageBox.Show("Comunicação Encerrada!","Confirmação");
                 }
                 else
@@ -264,31 +263,81 @@ namespace WindowsFormsApplication1
                     // se a informação lida contiver o caractere S, que dizer que essa informação é referente ao nivel do reservatorio superior
                     if (valorLido.Contains("S"))
                     {
+                        String valorInteiro;
                         //removo o primeiro caractere lido da informação recebida da porta serial
                         String valor = valorLido.Substring(1, (valorLido.Length - 1));
                         //removo a parte decimal da string;
-                        String valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                        if (valor.IndexOf('.') > -1)
+                        {
+                          valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                        }
+                        else {
+                           valorInteiro = valor.Substring(0,(valor.Length - 1));
+                        }
                         // transformo o valor lido em um inteiro
                         nivelReservatorioSuperior = int.Parse(valorInteiro);
                         // repasso o valor lido para o objeto verticalProgressBar
                         caixaAguaSuperior.Value = nivelReservatorioSuperior;
                         percentualSuperior = Convert.ToString(nivelReservatorioSuperior);
+                        // escrevo no campo de texto
+                        transfereSuperior(percentualSuperior+" %");
                     }
                     // se a informação lida convetiver o caractere I, que dizer que essa informação é referente ao nivel do reservatorio inferior
                     else if (valorLido.Contains("I"))
                     {
+                        String valorInteiro;
                         //removo o primeiro caractere lido da informação recebida da porta serial
                         String valor = valorLido.Substring(1, (valorLido.Length - 1));
                         //removo a parte decimal da string;
-                        String valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                        if (valor.IndexOf('.') > -1)
+                        {
+                            valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                        }
+                        else
+                        {
+                            valorInteiro = valor.Substring(0,(valor.Length - 1));
+                        }
+                         
                         // transformo o valor lido em um inteiro
                         nivelReservatorioInferior = int.Parse(valorInteiro);
                         // repasso o valor lido para o objeto verticalProgressBar
                         caixaAguaInferior.Value = nivelReservatorioInferior;
                         percentualInferior = Convert.ToString(nivelReservatorioInferior);
+                        // escrevo no campo de texto
+                        transfereInferior(percentualInferior+" %");
+                    }
+                    else if(valorLido.Contains("B"))
+                    {
+                        botaoBomba.Text = "Ligado";
+                        botaoBomba.BackColor = Color.Green;
+                    }
+                    else if (valorLido.Contains("b"))
+                    {
+                        botaoBomba.Text = "Desligado";
+                        botaoBomba.BackColor = Color.Red;
+                    }
+                    else if (valorLido.Contains("M"))
+                    {
+                        botaoMotor.Text = "Ligado";
+                        botaoMotor.BackColor = Color.Green;
+                    }
+                    else if (valorLido.Contains("m"))
+                    {
+                        botaoMotor.Text = "Desligado";
+                        botaoMotor.BackColor = Color.Red;
+                    }
+                    else if(valorLido.Contains("L"))
+                    {
+                        botaoAtivar.Text = "Ligado";
+                        botaoAtivar.BackColor = Color.Green;
+                    }
+                    else if (valorLido.Contains("l"))
+                    {
+                        botaoAtivar.Text = "Desligado";
+                        botaoAtivar.BackColor = Color.Red;
                     }
                     // paro a execução da thread por 1s
-                    Thread.Sleep(250);
+                    //Thread.Sleep(100);
                     // encerro a execução da thread
                     comunicacao.closedSerial();
                 }
@@ -298,7 +347,7 @@ namespace WindowsFormsApplication1
              */
             public void closed()
             {
-                if (thread == null)
+                if (thread != null)
                 {
                     try
                     {
@@ -318,20 +367,97 @@ namespace WindowsFormsApplication1
                         }
                     }
                 }
+                else
+                {
+                    try
+                    {
+                        Application.Exit();
+                    }catch(Exception e){
+                        
+                    }
+                }
             }
 
+            // funcao executada quando o formulario é fechado
             private void FormularioPrincipal_FormClosing(object sender, FormClosingEventArgs e)
             {
                 Application.Exit();
-                //this.closed();
+                this.closed();
                 comunicacao.closedSerial();
             }
 
-             //funcao responsavel por comparar se o nivel  do reservatorio superior e verificar se ele estiver em 100%
-             public void compareNivel()
-            { 
-            
-            
+           // funcao executada quando o botao ativar está ativa
+            private void botaoAtivar_Click(object sender, EventArgs e)
+            {
+                if (botaoAtivar.BackColor == Color.Red)
+                {
+                    botaoAtivar.Text = "Ligado";
+                    botaoAtivar.BackColor = Color.Green;
+                    serial = comunicacao.initializeSerial();
+                    if (serial)
+                    {
+                        //inicializo a execução da thread
+                        thread = new Thread(new ThreadStart(loadNivel));
+                        thread.Start();
+                        comunicacao.sendConfigure(ComunicaoSerial.START);
+                        comunicacao.closedSerial();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!","Configuração");
+                    }
+                }
+                else
+                {
+                    botaoAtivar.Text = "Desligado";
+                    botaoAtivar.BackColor = Color.Red;
+                    serial = !comunicacao.closedSerial();
+                    
+                    if (!serial)
+                    {
+                          comunicacao.sendConfigure(ComunicaoSerial.RESET);
+                          comunicacao.closedSerial();
+                          serial = false;
+                          this.closed();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
+                    }
+                }
+            }
+
+            // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente superior
+           public void transfereSuperior(String text)
+           {
+               if(this.nivelSuperiorText.InvokeRequired)
+               {
+                   this.nivelSuperiorText.Invoke((MethodInvoker)delegate()
+                   {
+                       transfereSuperior(text);
+                   });
+               }
+               else 
+               {
+                   this.nivelSuperiorText.Text = text;
+               }
            }
+
+           // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente inferior
+           public void transfereInferior(String text)
+           {
+               if (this.nivelInferiorText.InvokeRequired)
+               {
+                   this.nivelInferiorText.Invoke((MethodInvoker)delegate()
+                   {
+                       transfereInferior(text);
+                   });
+               }
+               else
+               {
+                   this.nivelInferiorText.Text = text;
+               }
+           }
+
       }
 }
