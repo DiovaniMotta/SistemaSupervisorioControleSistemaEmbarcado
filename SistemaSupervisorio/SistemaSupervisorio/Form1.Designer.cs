@@ -1,11 +1,11 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class FormularioPrincipal
+    public partial class FormularioPrincipal
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        public System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,13 +26,14 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormularioPrincipal));
             this.btnLigado = new System.Windows.Forms.Button();
             this.btnDesligado = new System.Windows.Forms.Button();
             this.painelConfiguracaoSerial = new System.Windows.Forms.GroupBox();
             this.painelStatus = new System.Windows.Forms.GroupBox();
+            this.conexao = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.listaControleFluxo = new System.Windows.Forms.ComboBox();
@@ -51,23 +52,62 @@
             this.painelPortaSerial = new System.Windows.Forms.GroupBox();
             this.lblPorta = new System.Windows.Forms.Label();
             this.listaPortas = new System.Windows.Forms.ComboBox();
+            this.painelCaixaAguaSuperior = new System.Windows.Forms.FlowLayoutPanel();
+            this.caixaAguaSuperior = new VerticalProgressBar.VerticalProgressBar();
+            this.canoSuperiorPrimario = new System.Windows.Forms.FlowLayoutPanel();
+            this.canoSuperiorSecundario = new System.Windows.Forms.FlowLayoutPanel();
+            this.roscaCanoSuperior = new System.Windows.Forms.FlowLayoutPanel();
+            this.canoCentralSecundario = new System.Windows.Forms.FlowLayoutPanel();
+            this.roscaCanoInferior = new System.Windows.Forms.FlowLayoutPanel();
+            this.painelCaixaAguaInferior = new System.Windows.Forms.FlowLayoutPanel();
+            this.caixaAguaInferior = new VerticalProgressBar.VerticalProgressBar();
+            this.roscaCentral = new System.Windows.Forms.FlowLayoutPanel();
+            this.canoInferiorSecundario = new System.Windows.Forms.FlowLayoutPanel();
+            this.canoInferiorPrimario = new System.Windows.Forms.FlowLayoutPanel();
+            this.roscaCentralInforior = new System.Windows.Forms.FlowLayoutPanel();
+            this.motorDesligamento = new System.Windows.Forms.FlowLayoutPanel();
+            this.internalMotor = new System.Windows.Forms.GroupBox();
+            this.bombaAgua = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.painelLigarMotor = new System.Windows.Forms.GroupBox();
+            this.botaoMotor = new System.Windows.Forms.Button();
+            this.painelBomba = new System.Windows.Forms.GroupBox();
+            this.botaoBomba = new System.Windows.Forms.Button();
+            this.painelNivelRecipienteSuperior = new System.Windows.Forms.GroupBox();
+            this.nivelSuperiorText = new System.Windows.Forms.TextBox();
+            this.lblNivelSuperior = new System.Windows.Forms.Label();
+            this.painelRecipienteInferior = new System.Windows.Forms.GroupBox();
+            this.nivelInferiorText = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.painelAtualizarSerial = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.botaoAtualizarSerial = new System.Windows.Forms.Button();
             this.painelConfiguracaoSerial.SuspendLayout();
+            this.painelStatus.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.painelParidade.SuspendLayout();
             this.painelBitsDados.SuspendLayout();
             this.painelBitSegundos.SuspendLayout();
             this.painelPortaSerial.SuspendLayout();
+            this.painelCaixaAguaSuperior.SuspendLayout();
+            this.painelCaixaAguaInferior.SuspendLayout();
+            this.motorDesligamento.SuspendLayout();
+            this.painelLigarMotor.SuspendLayout();
+            this.painelBomba.SuspendLayout();
+            this.painelNivelRecipienteSuperior.SuspendLayout();
+            this.painelRecipienteInferior.SuspendLayout();
+            this.painelAtualizarSerial.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLigado
             // 
             this.btnLigado.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLigado.BackgroundImage")));
             this.btnLigado.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnLigado.Image = ((System.Drawing.Image)(resources.GetObject("btnLigado.Image")));
             this.btnLigado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLigado.ImageKey = "(none)";
-            this.btnLigado.Location = new System.Drawing.Point(33, 471);
+            this.btnLigado.Location = new System.Drawing.Point(28, 471);
             this.btnLigado.Name = "btnLigado";
             this.btnLigado.Size = new System.Drawing.Size(145, 38);
             this.btnLigado.TabIndex = 1;
@@ -87,6 +127,7 @@
             this.btnDesligado.Size = new System.Drawing.Size(145, 38);
             this.btnDesligado.TabIndex = 2;
             this.btnDesligado.Text = "Desconectar";
+            this.btnDesligado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDesligado.UseVisualStyleBackColor = true;
             this.btnDesligado.Click += new System.EventHandler(this.btnDesligado_Click);
             // 
@@ -104,7 +145,7 @@
             this.painelConfiguracaoSerial.Controls.Add(this.btnLigado);
             this.painelConfiguracaoSerial.Controls.Add(this.btnDesligado);
             this.painelConfiguracaoSerial.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.painelConfiguracaoSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.painelConfiguracaoSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.painelConfiguracaoSerial.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.painelConfiguracaoSerial.Location = new System.Drawing.Point(16, 12);
             this.painelConfiguracaoSerial.Name = "painelConfiguracaoSerial";
@@ -117,6 +158,7 @@
             // 
             this.painelStatus.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.painelStatus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelStatus.BackgroundImage")));
+            this.painelStatus.Controls.Add(this.conexao);
             this.painelStatus.ForeColor = System.Drawing.SystemColors.Window;
             this.painelStatus.Location = new System.Drawing.Point(6, 380);
             this.painelStatus.Name = "painelStatus";
@@ -124,6 +166,17 @@
             this.painelStatus.TabIndex = 11;
             this.painelStatus.TabStop = false;
             this.painelStatus.Text = "Conexão";
+            // 
+            // conexao
+            // 
+            this.conexao.BackColor = System.Drawing.Color.Red;
+            this.conexao.Enabled = false;
+            this.conexao.Location = new System.Drawing.Point(89, 15);
+            this.conexao.Name = "conexao";
+            this.conexao.Size = new System.Drawing.Size(157, 40);
+            this.conexao.TabIndex = 0;
+            this.conexao.Text = "Desconectado";
+            this.conexao.UseVisualStyleBackColor = false;
             // 
             // groupBox2
             // 
@@ -319,23 +372,370 @@
             this.listaPortas.Size = new System.Drawing.Size(124, 23);
             this.listaPortas.TabIndex = 3;
             // 
+            // painelCaixaAguaSuperior
+            // 
+            this.painelCaixaAguaSuperior.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.painelCaixaAguaSuperior.Controls.Add(this.caixaAguaSuperior);
+            this.painelCaixaAguaSuperior.Location = new System.Drawing.Point(544, 67);
+            this.painelCaixaAguaSuperior.Name = "painelCaixaAguaSuperior";
+            this.painelCaixaAguaSuperior.Size = new System.Drawing.Size(280, 440);
+            this.painelCaixaAguaSuperior.TabIndex = 4;
+            // 
+            // caixaAguaSuperior
+            // 
+            this.caixaAguaSuperior.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.caixaAguaSuperior.BorderStyle = VerticalProgressBar.BorderStyles.None;
+            this.caixaAguaSuperior.Color = System.Drawing.Color.Blue;
+            this.caixaAguaSuperior.Location = new System.Drawing.Point(3, 3);
+            this.caixaAguaSuperior.Maximum = 100;
+            this.caixaAguaSuperior.Minimum = 0;
+            this.caixaAguaSuperior.Name = "caixaAguaSuperior";
+            this.caixaAguaSuperior.Size = new System.Drawing.Size(267, 418);
+            this.caixaAguaSuperior.Step = 10;
+            this.caixaAguaSuperior.Style = VerticalProgressBar.Styles.Solid;
+            this.caixaAguaSuperior.TabIndex = 2;
+            this.caixaAguaSuperior.Value = 0;
+            // 
+            // canoSuperiorPrimario
+            // 
+            this.canoSuperiorPrimario.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.canoSuperiorPrimario.Location = new System.Drawing.Point(405, -1);
+            this.canoSuperiorPrimario.Name = "canoSuperiorPrimario";
+            this.canoSuperiorPrimario.Size = new System.Drawing.Size(40, 153);
+            this.canoSuperiorPrimario.TabIndex = 5;
+            // 
+            // canoSuperiorSecundario
+            // 
+            this.canoSuperiorSecundario.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.canoSuperiorSecundario.Location = new System.Drawing.Point(405, 111);
+            this.canoSuperiorSecundario.Name = "canoSuperiorSecundario";
+            this.canoSuperiorSecundario.Size = new System.Drawing.Size(115, 40);
+            this.canoSuperiorSecundario.TabIndex = 6;
+            // 
+            // roscaCanoSuperior
+            // 
+            this.roscaCanoSuperior.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.roscaCanoSuperior.Location = new System.Drawing.Point(508, 96);
+            this.roscaCanoSuperior.Name = "roscaCanoSuperior";
+            this.roscaCanoSuperior.Size = new System.Drawing.Size(42, 72);
+            this.roscaCanoSuperior.TabIndex = 0;
+            // 
+            // canoCentralSecundario
+            // 
+            this.canoCentralSecundario.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.canoCentralSecundario.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.canoCentralSecundario.Location = new System.Drawing.Point(856, 420);
+            this.canoCentralSecundario.Name = "canoCentralSecundario";
+            this.canoCentralSecundario.Size = new System.Drawing.Size(93, 40);
+            this.canoCentralSecundario.TabIndex = 8;
+            // 
+            // roscaCanoInferior
+            // 
+            this.roscaCanoInferior.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.roscaCanoInferior.Location = new System.Drawing.Point(820, 405);
+            this.roscaCanoInferior.Name = "roscaCanoInferior";
+            this.roscaCanoInferior.Size = new System.Drawing.Size(40, 72);
+            this.roscaCanoInferior.TabIndex = 9;
+            // 
+            // painelCaixaAguaInferior
+            // 
+            this.painelCaixaAguaInferior.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.painelCaixaAguaInferior.Controls.Add(this.caixaAguaInferior);
+            this.painelCaixaAguaInferior.Location = new System.Drawing.Point(955, 67);
+            this.painelCaixaAguaInferior.Name = "painelCaixaAguaInferior";
+            this.painelCaixaAguaInferior.Size = new System.Drawing.Size(280, 440);
+            this.painelCaixaAguaInferior.TabIndex = 10;
+            // 
+            // caixaAguaInferior
+            // 
+            this.caixaAguaInferior.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.caixaAguaInferior.BorderStyle = VerticalProgressBar.BorderStyles.None;
+            this.caixaAguaInferior.Color = System.Drawing.Color.Blue;
+            this.caixaAguaInferior.Location = new System.Drawing.Point(3, 3);
+            this.caixaAguaInferior.Maximum = 100;
+            this.caixaAguaInferior.Minimum = 0;
+            this.caixaAguaInferior.Name = "caixaAguaInferior";
+            this.caixaAguaInferior.Size = new System.Drawing.Size(270, 418);
+            this.caixaAguaInferior.Step = 10;
+            this.caixaAguaInferior.Style = VerticalProgressBar.Styles.Solid;
+            this.caixaAguaInferior.TabIndex = 0;
+            this.caixaAguaInferior.Value = 0;
+            // 
+            // roscaCentral
+            // 
+            this.roscaCentral.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.roscaCentral.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.roscaCentral.Location = new System.Drawing.Point(919, 405);
+            this.roscaCentral.Name = "roscaCentral";
+            this.roscaCentral.Size = new System.Drawing.Size(40, 72);
+            this.roscaCentral.TabIndex = 11;
+            // 
+            // canoInferiorSecundario
+            // 
+            this.canoInferiorSecundario.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.canoInferiorSecundario.Location = new System.Drawing.Point(1295, -1);
+            this.canoInferiorSecundario.Name = "canoInferiorSecundario";
+            this.canoInferiorSecundario.Size = new System.Drawing.Size(40, 461);
+            this.canoInferiorSecundario.TabIndex = 12;
+            // 
+            // canoInferiorPrimario
+            // 
+            this.canoInferiorPrimario.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.canoInferiorPrimario.Location = new System.Drawing.Point(1234, 420);
+            this.canoInferiorPrimario.Name = "canoInferiorPrimario";
+            this.canoInferiorPrimario.Size = new System.Drawing.Size(101, 40);
+            this.canoInferiorPrimario.TabIndex = 13;
+            // 
+            // roscaCentralInforior
+            // 
+            this.roscaCentralInforior.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.roscaCentralInforior.Location = new System.Drawing.Point(1234, 405);
+            this.roscaCentralInforior.Name = "roscaCentralInforior";
+            this.roscaCentralInforior.Size = new System.Drawing.Size(40, 72);
+            this.roscaCentralInforior.TabIndex = 14;
+            // 
+            // motorDesligamento
+            // 
+            this.motorDesligamento.BackColor = System.Drawing.Color.Yellow;
+            this.motorDesligamento.Controls.Add(this.internalMotor);
+            this.motorDesligamento.Location = new System.Drawing.Point(682, 544);
+            this.motorDesligamento.Name = "motorDesligamento";
+            this.motorDesligamento.Size = new System.Drawing.Size(165, 100);
+            this.motorDesligamento.TabIndex = 16;
+            // 
+            // internalMotor
+            // 
+            this.internalMotor.BackColor = System.Drawing.Color.Yellow;
+            this.internalMotor.ForeColor = System.Drawing.Color.Coral;
+            this.internalMotor.Location = new System.Drawing.Point(3, 3);
+            this.internalMotor.Name = "internalMotor";
+            this.internalMotor.Size = new System.Drawing.Size(153, 87);
+            this.internalMotor.TabIndex = 25;
+            this.internalMotor.TabStop = false;
+            // 
+            // bombaAgua
+            // 
+            this.bombaAgua.BackColor = System.Drawing.Color.Yellow;
+            this.bombaAgua.Location = new System.Drawing.Point(1093, 544);
+            this.bombaAgua.Name = "bombaAgua";
+            this.bombaAgua.Size = new System.Drawing.Size(165, 100);
+            this.bombaAgua.TabIndex = 18;
+            // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.BackColor = System.Drawing.Color.Yellow;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(830, 473);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(17, 75);
+            this.flowLayoutPanel4.TabIndex = 19;
+            // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.BackColor = System.Drawing.Color.Yellow;
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(1241, 473);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(17, 75);
+            this.flowLayoutPanel5.TabIndex = 20;
+            // 
+            // painelLigarMotor
+            // 
+            this.painelLigarMotor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelLigarMotor.BackgroundImage")));
+            this.painelLigarMotor.Controls.Add(this.botaoMotor);
+            this.painelLigarMotor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.painelLigarMotor.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.painelLigarMotor.Location = new System.Drawing.Point(456, 544);
+            this.painelLigarMotor.Name = "painelLigarMotor";
+            this.painelLigarMotor.Size = new System.Drawing.Size(200, 100);
+            this.painelLigarMotor.TabIndex = 21;
+            this.painelLigarMotor.TabStop = false;
+            this.painelLigarMotor.Text = "Motor ";
+            // 
+            // botaoMotor
+            // 
+            this.botaoMotor.BackColor = System.Drawing.Color.Red;
+            this.botaoMotor.Enabled = false;
+            this.botaoMotor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botaoMotor.Location = new System.Drawing.Point(16, 34);
+            this.botaoMotor.Name = "botaoMotor";
+            this.botaoMotor.Size = new System.Drawing.Size(157, 40);
+            this.botaoMotor.TabIndex = 22;
+            this.botaoMotor.Text = "Desligado";
+            this.botaoMotor.UseVisualStyleBackColor = false;
+            this.botaoMotor.Click += new System.EventHandler(this.botaoMotor_Click);
+            // 
+            // painelBomba
+            // 
+            this.painelBomba.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelBomba.BackgroundImage")));
+            this.painelBomba.Controls.Add(this.botaoBomba);
+            this.painelBomba.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.painelBomba.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.painelBomba.Location = new System.Drawing.Point(870, 544);
+            this.painelBomba.Name = "painelBomba";
+            this.painelBomba.Size = new System.Drawing.Size(200, 100);
+            this.painelBomba.TabIndex = 22;
+            this.painelBomba.TabStop = false;
+            this.painelBomba.Text = "Bomba D\'Água";
+            // 
+            // botaoBomba
+            // 
+            this.botaoBomba.BackColor = System.Drawing.Color.Red;
+            this.botaoBomba.Enabled = false;
+            this.botaoBomba.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botaoBomba.Location = new System.Drawing.Point(16, 34);
+            this.botaoBomba.Name = "botaoBomba";
+            this.botaoBomba.Size = new System.Drawing.Size(157, 40);
+            this.botaoBomba.TabIndex = 22;
+            this.botaoBomba.Text = "Desligado";
+            this.botaoBomba.UseVisualStyleBackColor = false;
+            this.botaoBomba.Click += new System.EventHandler(this.botaoBomba_Click);
+            // 
+            // painelNivelRecipienteSuperior
+            // 
+            this.painelNivelRecipienteSuperior.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelNivelRecipienteSuperior.BackgroundImage")));
+            this.painelNivelRecipienteSuperior.Controls.Add(this.nivelSuperiorText);
+            this.painelNivelRecipienteSuperior.Controls.Add(this.lblNivelSuperior);
+            this.painelNivelRecipienteSuperior.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.painelNivelRecipienteSuperior.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.painelNivelRecipienteSuperior.Location = new System.Drawing.Point(544, 6);
+            this.painelNivelRecipienteSuperior.Name = "painelNivelRecipienteSuperior";
+            this.painelNivelRecipienteSuperior.Size = new System.Drawing.Size(280, 58);
+            this.painelNivelRecipienteSuperior.TabIndex = 23;
+            this.painelNivelRecipienteSuperior.TabStop = false;
+            this.painelNivelRecipienteSuperior.Text = "Recipiente Superior";
+            // 
+            // nivelSuperiorText
+            // 
+            this.nivelSuperiorText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.nivelSuperiorText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.nivelSuperiorText.Location = new System.Drawing.Point(112, 22);
+            this.nivelSuperiorText.Name = "nivelSuperiorText";
+            this.nivelSuperiorText.ReadOnly = true;
+            this.nivelSuperiorText.Size = new System.Drawing.Size(100, 26);
+            this.nivelSuperiorText.TabIndex = 1;
+            this.nivelSuperiorText.Text = "0,00";
+            this.nivelSuperiorText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblNivelSuperior
+            // 
+            this.lblNivelSuperior.AutoSize = true;
+            this.lblNivelSuperior.Location = new System.Drawing.Point(38, 25);
+            this.lblNivelSuperior.Name = "lblNivelSuperior";
+            this.lblNivelSuperior.Size = new System.Drawing.Size(47, 20);
+            this.lblNivelSuperior.TabIndex = 0;
+            this.lblNivelSuperior.Text = "Nível";
+            // 
+            // painelRecipienteInferior
+            // 
+            this.painelRecipienteInferior.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelRecipienteInferior.BackgroundImage")));
+            this.painelRecipienteInferior.Controls.Add(this.nivelInferiorText);
+            this.painelRecipienteInferior.Controls.Add(this.label6);
+            this.painelRecipienteInferior.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.painelRecipienteInferior.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.painelRecipienteInferior.Location = new System.Drawing.Point(955, 3);
+            this.painelRecipienteInferior.Name = "painelRecipienteInferior";
+            this.painelRecipienteInferior.Size = new System.Drawing.Size(280, 58);
+            this.painelRecipienteInferior.TabIndex = 24;
+            this.painelRecipienteInferior.TabStop = false;
+            this.painelRecipienteInferior.Text = "Recipiente Inferior";
+            // 
+            // nivelInferiorText
+            // 
+            this.nivelInferiorText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.nivelInferiorText.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.nivelInferiorText.Location = new System.Drawing.Point(119, 19);
+            this.nivelInferiorText.Name = "nivelInferiorText";
+            this.nivelInferiorText.ReadOnly = true;
+            this.nivelInferiorText.Size = new System.Drawing.Size(100, 26);
+            this.nivelInferiorText.TabIndex = 2;
+            this.nivelInferiorText.Text = "0,00";
+            this.nivelInferiorText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(53, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 20);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Nível";
+            // 
+            // painelAtualizarSerial
+            // 
+            this.painelAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelAtualizarSerial.BackgroundImage")));
+            this.painelAtualizarSerial.Controls.Add(this.label7);
+            this.painelAtualizarSerial.Controls.Add(this.botaoAtualizarSerial);
+            this.painelAtualizarSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.painelAtualizarSerial.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.painelAtualizarSerial.Location = new System.Drawing.Point(16, 561);
+            this.painelAtualizarSerial.Name = "painelAtualizarSerial";
+            this.painelAtualizarSerial.Size = new System.Drawing.Size(348, 100);
+            this.painelAtualizarSerial.TabIndex = 25;
+            this.painelAtualizarSerial.TabStop = false;
+            this.painelAtualizarSerial.Text = "Portas Seriais";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(12, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(165, 15);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Atualizar Portas Seriais :";
+            // 
+            // botaoAtualizarSerial
+            // 
+            this.botaoAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.BackgroundImage")));
+            this.botaoAtualizarSerial.Image = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.Image")));
+            this.botaoAtualizarSerial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.botaoAtualizarSerial.Location = new System.Drawing.Point(206, 33);
+            this.botaoAtualizarSerial.Name = "botaoAtualizarSerial";
+            this.botaoAtualizarSerial.Size = new System.Drawing.Size(116, 40);
+            this.botaoAtualizarSerial.TabIndex = 0;
+            this.botaoAtualizarSerial.Text = "Atualizar";
+            this.botaoAtualizarSerial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.botaoAtualizarSerial.UseVisualStyleBackColor = true;
+            this.botaoAtualizarSerial.Click += new System.EventHandler(this.botaoAtualizarSerial_Click);
+            // 
             // FormularioPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1213, 559);
+            this.ClientSize = new System.Drawing.Size(1370, 694);
+            this.Controls.Add(this.painelAtualizarSerial);
+            this.Controls.Add(this.painelRecipienteInferior);
+            this.Controls.Add(this.painelNivelRecipienteSuperior);
+            this.Controls.Add(this.painelBomba);
+            this.Controls.Add(this.painelLigarMotor);
+            this.Controls.Add(this.bombaAgua);
+            this.Controls.Add(this.motorDesligamento);
+            this.Controls.Add(this.roscaCentralInforior);
+            this.Controls.Add(this.canoInferiorPrimario);
+            this.Controls.Add(this.canoInferiorSecundario);
+            this.Controls.Add(this.roscaCentral);
+            this.Controls.Add(this.painelCaixaAguaInferior);
+            this.Controls.Add(this.roscaCanoSuperior);
+            this.Controls.Add(this.canoSuperiorSecundario);
+            this.Controls.Add(this.roscaCanoInferior);
+            this.Controls.Add(this.canoCentralSecundario);
+            this.Controls.Add(this.canoSuperiorPrimario);
+            this.Controls.Add(this.painelCaixaAguaSuperior);
             this.Controls.Add(this.painelConfiguracaoSerial);
+            this.Controls.Add(this.flowLayoutPanel4);
+            this.Controls.Add(this.flowLayoutPanel5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormularioPrincipal";
-            this.Text = "Sistema Supervisório  Controle de Nível  de Àgua - Sistemas Embarcados - Engenhar" +
-                "ia da Computação";
+            this.Text = "Sistema Supervisório - Sistemas Embarcados - Engenharia de Computação";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormularioPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormularioPrincipal_Load);
             this.painelConfiguracaoSerial.ResumeLayout(false);
+            this.painelStatus.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -348,34 +748,78 @@
             this.painelBitSegundos.PerformLayout();
             this.painelPortaSerial.ResumeLayout(false);
             this.painelPortaSerial.PerformLayout();
+            this.painelCaixaAguaSuperior.ResumeLayout(false);
+            this.painelCaixaAguaInferior.ResumeLayout(false);
+            this.motorDesligamento.ResumeLayout(false);
+            this.painelLigarMotor.ResumeLayout(false);
+            this.painelBomba.ResumeLayout(false);
+            this.painelNivelRecipienteSuperior.ResumeLayout(false);
+            this.painelNivelRecipienteSuperior.PerformLayout();
+            this.painelRecipienteInferior.ResumeLayout(false);
+            this.painelRecipienteInferior.PerformLayout();
+            this.painelAtualizarSerial.ResumeLayout(false);
+            this.painelAtualizarSerial.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnLigado;
-        private System.Windows.Forms.Button btnDesligado;
-        private System.Windows.Forms.GroupBox painelConfiguracaoSerial;
-        private System.Windows.Forms.ComboBox listaPortas;
-        private System.Windows.Forms.GroupBox painelPortaSerial;
-        private System.Windows.Forms.Label lblPorta;
-        private System.Windows.Forms.GroupBox painelBitsDados;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox listaBitsDados;
-        private System.Windows.Forms.GroupBox painelBitSegundos;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox listaBitsSegundo;
-        private System.Windows.Forms.GroupBox painelParidade;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox listaParidade;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox listaBitsParada;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox listaControleFluxo;
-        private System.Windows.Forms.GroupBox painelStatus;
+        public System.Windows.Forms.Button btnLigado;
+        public System.Windows.Forms.Button btnDesligado;
+        public System.Windows.Forms.GroupBox painelConfiguracaoSerial;
+        public System.Windows.Forms.ComboBox listaPortas;
+        public System.Windows.Forms.GroupBox painelPortaSerial;
+        public System.Windows.Forms.Label lblPorta;
+        public System.Windows.Forms.GroupBox painelBitsDados;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.ComboBox listaBitsDados;
+        public System.Windows.Forms.GroupBox painelBitSegundos;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.ComboBox listaBitsSegundo;
+        public System.Windows.Forms.GroupBox painelParidade;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.ComboBox listaParidade;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.ComboBox listaBitsParada;
+        public System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.ComboBox listaControleFluxo;
+        public System.Windows.Forms.GroupBox painelStatus;
+        public System.Windows.Forms.FlowLayoutPanel painelCaixaAguaSuperior;
+        public System.Windows.Forms.FlowLayoutPanel canoSuperiorPrimario;
+        public System.Windows.Forms.FlowLayoutPanel canoSuperiorSecundario;
+        public System.Windows.Forms.FlowLayoutPanel roscaCanoSuperior;
+        public System.Windows.Forms.FlowLayoutPanel canoCentralSecundario;
+        public System.Windows.Forms.FlowLayoutPanel roscaCanoInferior;
+        public System.Windows.Forms.FlowLayoutPanel painelCaixaAguaInferior;
+        public System.Windows.Forms.FlowLayoutPanel roscaCentral;
+        public System.Windows.Forms.FlowLayoutPanel canoInferiorSecundario;
+        public System.Windows.Forms.FlowLayoutPanel canoInferiorPrimario;
+        public System.Windows.Forms.FlowLayoutPanel roscaCentralInforior;
+        public VerticalProgressBar.VerticalProgressBar caixaAguaSuperior;
+        public VerticalProgressBar.VerticalProgressBar caixaAguaInferior;
+        public System.Windows.Forms.FlowLayoutPanel motorDesligamento;
+        public System.Windows.Forms.FlowLayoutPanel bombaAgua;
+        public System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        public System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        public System.Windows.Forms.Button conexao;
+        public System.Windows.Forms.GroupBox painelLigarMotor;
+        public System.Windows.Forms.Button botaoMotor;
+        public System.Windows.Forms.GroupBox painelBomba;
+        public System.Windows.Forms.Button botaoBomba;
+        public System.Windows.Forms.GroupBox painelNivelRecipienteSuperior;
+        public System.Windows.Forms.GroupBox painelRecipienteInferior;
+        public System.Windows.Forms.ToolTip toolTip1;
+        public System.Windows.Forms.TextBox nivelSuperiorText;
+        public System.Windows.Forms.Label lblNivelSuperior;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.TextBox nivelInferiorText;
+        private System.Windows.Forms.GroupBox internalMotor;
+        private System.Windows.Forms.GroupBox painelAtualizarSerial;
+        private System.Windows.Forms.Button botaoAtualizarSerial;
+        private System.Windows.Forms.Label label7;
     }
 }
 

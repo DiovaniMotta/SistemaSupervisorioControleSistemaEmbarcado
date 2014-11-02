@@ -10,12 +10,12 @@ namespace WindowsFormsApplication1
     /*
      * @autor Diovani Bernardi da Motta
      **/
-    class ComunicaoSerial
+    public class ComunicaoSerial
     {
         //Objeto responsavel por selecionar as configurações da porta serial
-        private SerialPort portaSerial = new SerialPort();
+        public SerialPort portaSerial = new SerialPort();
         // Objeto responsavel por armazenar a lista de portas seriais disponiveis na maquina
-        private String[] portasSeriais;
+        public String[] portasSeriais;
         //Objeto responsavel por armazenar uma lista os bits por segundo que serão usados na comunicação
         public List<String> listaBitsSegundos = new List<String>();
         //Objeto responsavel por armazenar uma lista de bits de dados que serão transmitidos
@@ -26,20 +26,32 @@ namespace WindowsFormsApplication1
         public List<String> listaBitsParada = new List<String>();
         //Objeto responsavel por armazenar os valores possivel para o controle do fluxo da comunicação serial
         public List<String> listaControleFluxo = new List<String>();
+        //variavel que controla se está ou nao conectado a serial
+        public Boolean conectado = false;
 
         //Objeto responsavel por armazenar a porta serial selecionada pelo usuario
-        private String portaSerialSelecionada;
+        public String portaSerialSelecionada;
         //Objeto responsavel por armazenar o baudrate da transmissao
-        private String bitsSegundoSelecionado;
+        public String bitsSegundoSelecionado;
         //Objeto responsavel por armazenar os bits de dados que serao usados para transferencia
-        private String bitsDadosSelecionado;
+        public String bitsDadosSelecionado;
         //Objeto responsavel por armazenar a paridade usada na comunicaçao serial
-        private String paridadeSelecionado;
+        public String paridadeSelecionado;
         //Objeto responsavel por armazenar os bits de parada selecionado
-        private String bitsParadaSelecionada;
+        public String bitsParadaSelecionada;
         //Objeto responsavel por armazenar o controle de fluxo usado na porta serial
-        private String controleFluxoSelecionado;
-
+        public String controleFluxoSelecionado;
+        // constantes responsavel por informar ao dispositivo serial que sera aberto ou fechada a comunicação
+        public static String ABRIR_COMUNICACAO = "A";
+        public static String FECHAR_COMUNICACAO = "F";
+        // constantes responsaveis por representar se a instrução a seguir será enviada para o motor ou para a bomba
+        public static String BOMBA_SUPERVISORIO = "B";
+        public static String MOTOR_SUPERVISORIO = "M";
+        //constante responsavel por informar ao microcontrolador que será enviada informaçoes para configurar a usar
+        public static String CONFIGURACAO_SUPEVISORIO = "C";
+        // constantes responsaveis por representar se deve ou nao ser ligado o motor ou a bomba do supervisorio
+        public static String LIGAR = "1";
+        public static String DESLIGAR = "0";
 
         public ComunicaoSerial()
         {
@@ -140,7 +152,6 @@ namespace WindowsFormsApplication1
                     // escrevo o array de byte no canal serial
                     portaSerial.Write(streamByte, 0, streamByte.Length);
                     //fecho a comunicação serial
-                    this.closedSerial();
                     return true;
                 }
                 else
@@ -173,7 +184,7 @@ namespace WindowsFormsApplication1
 
         /* Funcao responsavel por configurar os valores que serão exibidos na tela para o usuario selecionar
          */
-        private void configuracao()
+        public void configuracao()
         {
             try
             {
@@ -216,8 +227,9 @@ namespace WindowsFormsApplication1
                 //Abro a porta serial
                 portaSerial.Open();
                 //se a porta estiver aberta
-                if(portaSerial.IsOpen)
+                if (portaSerial.IsOpen)
                 {
+                    this.writeSerial(ComunicaoSerial.ABRIR_COMUNICACAO);
                     return true;
                 }
             }
@@ -233,19 +245,50 @@ namespace WindowsFormsApplication1
         {
             try
             {
+                this.writeSerial(ComunicaoSerial.FECHAR_COMUNICACAO);
                 //finalizo a conexao com a porta serial
                 portaSerial.Close();
                 // se a porta nao estiver aberta
-                if(!portaSerial.IsOpen)
+                if (!portaSerial.IsOpen)
                 {
                     return true;
                 }
-
             }
             catch(Exception e){
                 return false;
             }
             return false;
+        }
+
+        /*
+         *  Função responsavel por enviar informações de configuração ao pic
+         **/
+        public void sendConfigure(String hardware,String command)
+        {
+            if(hardware.Equals(ABRIR_COMUNICACAO))
+            {
+                this.writeSerial(ABRIR_COMUNICACAO);
+            }
+            else if(hardware.Equals(FECHAR_COMUNICACAO)) 
+            {
+                this.writeSerial(FECHAR_COMUNICACAO);
+            }
+            else if(hardware.Equals(CONFIGURACAO_SUPEVISORIO))
+            {
+                this.writeSerial(CONFIGURACAO_SUPEVISORIO);
+                this.writeSerial(bitsSegundoSelecionado);
+                this.writeSerial(bitsDadosSelecionado);
+            }
+            else if(hardware.Equals(MOTOR_SUPERVISORIO) && command.Length > 0)
+            {
+                this.writeSerial(MOTOR_SUPERVISORIO);
+                this.writeSerial(command);
+            }
+            else if (hardware.Equals(BOMBA_SUPERVISORIO) && command.Length > 0)
+            {
+                this.writeSerial(BOMBA_SUPERVISORIO);
+                this.writeSerial(command);
+            }
         }
 
         public void setPortaSerialSelecionada(String port){
@@ -305,6 +348,11 @@ namespace WindowsFormsApplication1
         public String setControleFluxoSelecionado()
         {
             return this.controleFluxoSelecionado;
+        }
+
+        public Boolean isConected()
+        {
+            return conectado;
         }
     }
 }

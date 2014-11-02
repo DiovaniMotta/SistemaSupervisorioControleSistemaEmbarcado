@@ -10,13 +10,13 @@ namespace WindowsFormsApplication1
      * Classe responsavel por executar o fluxo principal do programa 
      * **/
 
-    static class Program
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles(); // habilitação dos efeitos graficos usados pelo form
             Application.SetCompatibleTextRenderingDefault(false);
