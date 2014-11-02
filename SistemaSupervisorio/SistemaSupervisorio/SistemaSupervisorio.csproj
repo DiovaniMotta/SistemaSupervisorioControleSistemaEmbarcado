@@ -109,12 +109,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="icon\" />
     <Folder Include="imagens\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="icone.ico" />
-    <None Include="icon\ligado.ico" />
-    <None Include="icon\ligado.jpg" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

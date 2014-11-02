@@ -20,6 +20,8 @@ namespace WindowsFormsApplication1
         public ComunicaoSerial comunicacao = new ComunicaoSerial();
         public int nivelReservatorioSuperior = 0;
         public int nivelReservatorioInferior = 0;
+        public String percentualSuperior = "0 %";
+        public String percentualInferior = "0 %";
         public Thread thread;
         public Boolean serial = false;
 
@@ -28,7 +30,11 @@ namespace WindowsFormsApplication1
         public FormularioPrincipal()
         {
             InitializeComponent();
-           
+
+            if (nivelSuperiorText.InvokeRequired)
+            {
+                nivelSuperiorText.Invoke(new MethodInvoker(delegate { percentualSuperior = nivelSuperiorText.Text;}));
+            }
         }
 
         /*
@@ -118,6 +124,7 @@ namespace WindowsFormsApplication1
                 comunicacao.configureSerial();
                 // se for possivel iniciar a comunicação serial
                 serial = comunicacao.initializeSerial();
+                // se o retorno for verdadeiro
                 if (serial)
                 {
                     //desabilito o botao conectar e habilito o botao desconectar
@@ -126,13 +133,15 @@ namespace WindowsFormsApplication1
                     // informo ao usuario que a conexao foi realizada
                     conexao.Text = "Conectado";
                     conexao.BackColor = Color.Green;
-                    comunicacao.sendConfigure(ComunicaoSerial.CONFIGURACAO_SUPEVISORIO,"");
                     MessageBox.Show("Conexão realizada com sucesso!","Confirmação");
                     botaoMotor.Enabled = true;
                     botaoBomba.Enabled = true;
+                    //encerro a comunicacao serial
+                    comunicacao.closedSerial();
                     //inicializo a execução da thread
                     thread = new Thread(new ThreadStart(loadNivel));
                     thread.Start();
+                    
                 }
                 else
                 {
@@ -152,8 +161,9 @@ namespace WindowsFormsApplication1
                 System.Windows.Forms.DialogResult.Yes)
             {
                 // envio os comandos para desligar o motor
-                comunicacao.sendConfigure(ComunicaoSerial.BOMBA_SUPERVISORIO, ComunicaoSerial.DESLIGAR);
-                comunicacao.sendConfigure(ComunicaoSerial.MOTOR_SUPERVISORIO, ComunicaoSerial.DESLIGAR);
+                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_BOMBA);
+                Thread.Sleep(20);
+                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_MOTOR);
                    
                  // se for possivel encerar a comunicação serial
                  serial = !comunicacao.closedSerial();
@@ -165,7 +175,7 @@ namespace WindowsFormsApplication1
                     conexao.Text = "Desconectado";
                     conexao.BackColor = Color.Red;
                     // encerro a execução da conexao
-                    Close();
+                    //this.closed();
                     // desabilito os botoes da bomba e motor
                     botaoBomba.Enabled = false;
                     botaoMotor.Enabled = false;
@@ -193,11 +203,13 @@ namespace WindowsFormsApplication1
             {
                 botaoBomba.Text = "Ligado";
                 botaoBomba.BackColor = Color.Green;
+                comunicacao.sendConfigure(ComunicaoSerial.LIGAR_BOMBA);
             }
             else 
             {
                 botaoBomba.Text = "Desligado";
                 botaoBomba.BackColor = Color.Red;
+                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_BOMBA);
             }
         }
 
@@ -207,13 +219,13 @@ namespace WindowsFormsApplication1
             {
                 botaoMotor.Text = "Ligado";
                 botaoMotor.BackColor = Color.Green;
-                comunicacao.sendConfigure(ComunicaoSerial.MOTOR_SUPERVISORIO,ComunicaoSerial.LIGAR);
+                comunicacao.sendConfigure(ComunicaoSerial.LIGAR_MOTOR);
             }
             else 
             {
                 botaoMotor.Text = "Desligado";
                 botaoMotor.BackColor = Color.Red;
-                comunicacao.sendConfigure(ComunicaoSerial.MOTOR_SUPERVISORIO, ComunicaoSerial.DESLIGAR);
+                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_MOTOR);
             }
         }
 
@@ -246,44 +258,39 @@ namespace WindowsFormsApplication1
                 // enquanto a comunicação serial estiver ativa.    
                 while (serial)
                 {
+                    comunicacao.initializeSerial();
                     // efetuo a leitura da porta serial
                     String valorLido = comunicacao.readSerial();
                     // se a informação lida contiver o caractere S, que dizer que essa informação é referente ao nivel do reservatorio superior
                     if (valorLido.Contains("S"))
                     {
                         //removo o primeiro caractere lido da informação recebida da porta serial
-                        String valor = valorLido.Substring(1, valorLido.Length);
+                        String valor = valorLido.Substring(1, (valorLido.Length - 1));
+                        //removo a parte decimal da string;
+                        String valorInteiro = valor.Substring(0, valor.IndexOf('.'));
                         // transformo o valor lido em um inteiro
-                        nivelReservatorioSuperior = (int)int.Parse(valor);
+                        nivelReservatorioSuperior = int.Parse(valorInteiro);
                         // repasso o valor lido para o objeto verticalProgressBar
                         caixaAguaSuperior.Value = nivelReservatorioSuperior;
-                        // atualizo o componente grafico
-                        caixaAguaSuperior.Refresh();
-                        //valido a estrutura do componente
-                        caixaAguaSuperior.Validate();
-                        // repasso o valor lido para o campo de text
-                        nivelSuperiorText.Text = Convert.ToString(nivelReservatorioSuperior);
-                        nivelSuperiorText.Refresh();
+                        percentualSuperior = Convert.ToString(nivelReservatorioSuperior);
                     }
                     // se a informação lida convetiver o caractere I, que dizer que essa informação é referente ao nivel do reservatorio inferior
                     else if (valorLido.Contains("I"))
                     {
                         //removo o primeiro caractere lido da informação recebida da porta serial
-                        String valor = valorLido.Substring(1, valorLido.Length);
+                        String valor = valorLido.Substring(1, (valorLido.Length - 1));
+                        //removo a parte decimal da string;
+                        String valorInteiro = valor.Substring(0, valor.IndexOf('.'));
                         // transformo o valor lido em um inteiro
-                        nivelReservatorioInferior = (int)int.Parse(valor);
+                        nivelReservatorioInferior = int.Parse(valorInteiro);
                         // repasso o valor lido para o objeto verticalProgressBar
                         caixaAguaInferior.Value = nivelReservatorioInferior;
-                        // atualizo o componente grafico
-                        caixaAguaInferior.Refresh();
-                        //valido a estrutura do componente
-                        caixaAguaInferior.Validate();
-                        // repasso o valor lido para o campo de text
-                        nivelInferiorText.Text = Convert.ToString(nivelReservatorioInferior);
-                        nivelInferiorText.Refresh();
+                        percentualInferior = Convert.ToString(nivelReservatorioInferior);
                     }
                     // paro a execução da thread por 1s
-                    Thread.Sleep(1000);
+                    Thread.Sleep(250);
+                    // encerro a execução da thread
+                    comunicacao.closedSerial();
                 }
             }
 
@@ -300,7 +307,6 @@ namespace WindowsFormsApplication1
                             thread.Interrupt(); // encerro a execução da thread
                             Thread.Sleep(20);
                             thread.Abort();
-                            MessageBox.Show(" IsAlive ");
                         }
                     }
                     catch (Exception e)
@@ -309,13 +315,8 @@ namespace WindowsFormsApplication1
                         {
                             thread.Abort();
                             thread.Interrupt();
-                            MessageBox.Show(" Exception ");
                         }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Else NULL");
                 }
             }
 
@@ -325,5 +326,12 @@ namespace WindowsFormsApplication1
                 //this.closed();
                 comunicacao.closedSerial();
             }
-    }
+
+             //funcao responsavel por comparar se o nivel  do reservatorio superior e verificar se ele estiver em 100%
+             public void compareNivel()
+            { 
+            
+            
+           }
+      }
 }

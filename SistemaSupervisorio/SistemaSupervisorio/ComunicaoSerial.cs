@@ -45,14 +45,13 @@ namespace WindowsFormsApplication1
         public static String ABRIR_COMUNICACAO = "A";
         public static String FECHAR_COMUNICACAO = "F";
         // constantes responsaveis por representar se a instrução a seguir será enviada para o motor ou para a bomba
-        public static String BOMBA_SUPERVISORIO = "B";
-        public static String MOTOR_SUPERVISORIO = "M";
+        public static String LIGAR_BOMBA = "B";
+        public static String LIGAR_MOTOR = "M";
+        public static String DESLIGAR_BOMBA = "b";
+        public static String DESLIGAR_MOTOR = "m";
         //constante responsavel por informar ao microcontrolador que será enviada informaçoes para configurar a usar
         public static String CONFIGURACAO_SUPEVISORIO = "C";
-        // constantes responsaveis por representar se deve ou nao ser ligado o motor ou a bomba do supervisorio
-        public static String LIGAR = "1";
-        public static String DESLIGAR = "0";
-
+        
         public ComunicaoSerial()
         {
             try
@@ -143,14 +142,9 @@ namespace WindowsFormsApplication1
             try
             {
                 // se for possivel inicializar a conexao serial
-                if (this.initializeSerial())
+                if (portaSerial.IsOpen)
                 {
-                    //Objeto responsavel por converter uma string em um array de bytes
-                    System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-                    //transformo a string em um array de bayte
-                    byte[] streamByte = encoding.GetBytes(escrita);
-                    // escrevo o array de byte no canal serial
-                    portaSerial.Write(streamByte, 0, streamByte.Length);
+                    portaSerial.Write(escrita);
                     //fecho a comunicação serial
                     return true;
                 }
@@ -172,9 +166,10 @@ namespace WindowsFormsApplication1
             try
             {
                 // se for possivel inicializar a comunicaçãos serial
-                if(this.initializeSerial())
+                if(portaSerial.IsOpen)
                 {
-                  leitura = portaSerial.ReadExisting();
+                  leitura = portaSerial.ReadLine();
+
                 }
             }
             catch(Exception e){}
@@ -229,7 +224,6 @@ namespace WindowsFormsApplication1
                 //se a porta estiver aberta
                 if (portaSerial.IsOpen)
                 {
-                    this.writeSerial(ComunicaoSerial.ABRIR_COMUNICACAO);
                     return true;
                 }
             }
@@ -245,7 +239,6 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                this.writeSerial(ComunicaoSerial.FECHAR_COMUNICACAO);
                 //finalizo a conexao com a porta serial
                 portaSerial.Close();
                 // se a porta nao estiver aberta
@@ -263,7 +256,7 @@ namespace WindowsFormsApplication1
         /*
          *  Função responsavel por enviar informações de configuração ao pic
          **/
-        public void sendConfigure(String hardware,String command)
+        public void sendConfigure(String hardware)
         {
             if(hardware.Equals(ABRIR_COMUNICACAO))
             {
@@ -279,15 +272,21 @@ namespace WindowsFormsApplication1
                 this.writeSerial(bitsSegundoSelecionado);
                 this.writeSerial(bitsDadosSelecionado);
             }
-            else if(hardware.Equals(MOTOR_SUPERVISORIO) && command.Length > 0)
+            else if(hardware.Equals(DESLIGAR_BOMBA))
             {
-                this.writeSerial(MOTOR_SUPERVISORIO);
-                this.writeSerial(command);
+                this.writeSerial(DESLIGAR_BOMBA);
             }
-            else if (hardware.Equals(BOMBA_SUPERVISORIO) && command.Length > 0)
+            else if (hardware.Equals(LIGAR_BOMBA))
             {
-                this.writeSerial(BOMBA_SUPERVISORIO);
-                this.writeSerial(command);
+                this.writeSerial(LIGAR_BOMBA);
+            }
+            else if (hardware.Equals(LIGAR_MOTOR))
+            {
+                this.writeSerial(LIGAR_MOTOR);
+            }
+            else if(hardware.Equals(DESLIGAR_MOTOR))
+            {
+                this.writeSerial(DESLIGAR_MOTOR);
             }
         }
 
