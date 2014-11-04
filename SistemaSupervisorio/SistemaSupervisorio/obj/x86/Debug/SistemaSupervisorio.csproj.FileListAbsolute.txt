@@ -6,4 +6,3 @@ D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Cont
 D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\SistemaSupervisorio.pdb
 D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\WindowsFormsApplication1.FormularioPrincipal.resources
 D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\obj\x86\Debug\SistemaSupervisorio.csprojResolveAssemblyReference.cache
-D:\Dados Didho\Faculdade\6° Semestre\Sistemas Embarcados\Supervis-rio-para-Controle-Sistema-de-Bombeamento-de-gua\SistemaSupervisorio\SistemaSupervisorio\bin\Debug\VerticalProgressBar.dll

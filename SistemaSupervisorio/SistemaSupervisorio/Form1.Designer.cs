@@ -79,15 +79,13 @@
             this.painelRecipienteInferior = new System.Windows.Forms.GroupBox();
             this.nivelInferiorText = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.painelAtualizarSerial = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.botaoAtualizarSerial = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.botaoAtivar = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.botaoAtualizarSerial = new System.Windows.Forms.Button();
             this.painelConfiguracaoSerial.SuspendLayout();
             this.painelStatus.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -102,7 +100,6 @@
             this.painelBomba.SuspendLayout();
             this.painelNivelRecipienteSuperior.SuspendLayout();
             this.painelRecipienteInferior.SuspendLayout();
-            this.painelAtualizarSerial.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,7 +107,6 @@
             // 
             this.btnLigado.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLigado.BackgroundImage")));
             this.btnLigado.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnLigado.Image = global::WindowsFormsApplication1.Properties.Resources.conectar;
             this.btnLigado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLigado.ImageKey = "(none)";
             this.btnLigado.Location = new System.Drawing.Point(28, 471);
@@ -348,6 +344,7 @@
             // painelPortaSerial
             // 
             this.painelPortaSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelPortaSerial.BackgroundImage")));
+            this.painelPortaSerial.Controls.Add(this.botaoAtualizarSerial);
             this.painelPortaSerial.Controls.Add(this.lblPorta);
             this.painelPortaSerial.Controls.Add(this.listaPortas);
             this.painelPortaSerial.Location = new System.Drawing.Point(6, 19);
@@ -654,51 +651,13 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Nível";
             // 
-            // painelAtualizarSerial
-            // 
-            this.painelAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelAtualizarSerial.BackgroundImage")));
-            this.painelAtualizarSerial.Controls.Add(this.label7);
-            this.painelAtualizarSerial.Controls.Add(this.botaoAtualizarSerial);
-            this.painelAtualizarSerial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.painelAtualizarSerial.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.painelAtualizarSerial.Location = new System.Drawing.Point(16, 547);
-            this.painelAtualizarSerial.Name = "painelAtualizarSerial";
-            this.painelAtualizarSerial.Size = new System.Drawing.Size(354, 71);
-            this.painelAtualizarSerial.TabIndex = 25;
-            this.painelAtualizarSerial.TabStop = false;
-            this.painelAtualizarSerial.Text = "Portas Seriais";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(25, 31);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(165, 15);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Atualizar Portas Seriais :";
-            // 
-            // botaoAtualizarSerial
-            // 
-            this.botaoAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.BackgroundImage")));
-            this.botaoAtualizarSerial.Image = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.Image")));
-            this.botaoAtualizarSerial.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.botaoAtualizarSerial.Location = new System.Drawing.Point(208, 17);
-            this.botaoAtualizarSerial.Name = "botaoAtualizarSerial";
-            this.botaoAtualizarSerial.Size = new System.Drawing.Size(116, 40);
-            this.botaoAtualizarSerial.TabIndex = 0;
-            this.botaoAtualizarSerial.Text = "Atualizar";
-            this.botaoAtualizarSerial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.botaoAtualizarSerial.UseVisualStyleBackColor = true;
-            this.botaoAtualizarSerial.Click += new System.EventHandler(this.botaoAtualizarSerial_Click);
-            // 
             // groupBox3
             // 
             this.groupBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox3.BackgroundImage")));
             this.groupBox3.Controls.Add(this.botaoAtivar);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox3.Location = new System.Drawing.Point(16, 624);
+            this.groupBox3.Location = new System.Drawing.Point(16, 546);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(354, 72);
             this.groupBox3.TabIndex = 26;
@@ -747,6 +706,17 @@
             this.flowLayoutPanel6.Size = new System.Drawing.Size(23, 100);
             this.flowLayoutPanel6.TabIndex = 30;
             // 
+            // botaoAtualizarSerial
+            // 
+            this.botaoAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.BackgroundImage")));
+            this.botaoAtualizarSerial.Image = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.Image")));
+            this.botaoAtualizarSerial.Location = new System.Drawing.Point(283, 14);
+            this.botaoAtualizarSerial.Name = "botaoAtualizarSerial";
+            this.botaoAtualizarSerial.Size = new System.Drawing.Size(44, 30);
+            this.botaoAtualizarSerial.TabIndex = 5;
+            this.botaoAtualizarSerial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.botaoAtualizarSerial.UseVisualStyleBackColor = true;
+            // 
             // FormularioPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -760,7 +730,6 @@
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.painelAtualizarSerial);
             this.Controls.Add(this.painelRecipienteInferior);
             this.Controls.Add(this.painelNivelRecipienteSuperior);
             this.Controls.Add(this.painelBomba);
@@ -811,8 +780,6 @@
             this.painelNivelRecipienteSuperior.PerformLayout();
             this.painelRecipienteInferior.ResumeLayout(false);
             this.painelRecipienteInferior.PerformLayout();
-            this.painelAtualizarSerial.ResumeLayout(false);
-            this.painelAtualizarSerial.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -871,15 +838,13 @@
         public System.Windows.Forms.Label lblNivelSuperior;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox nivelInferiorText;
-        private System.Windows.Forms.GroupBox painelAtualizarSerial;
-        private System.Windows.Forms.Button botaoAtualizarSerial;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button botaoAtivar;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
+        private System.Windows.Forms.Button botaoAtualizarSerial;
     }
 }
 
