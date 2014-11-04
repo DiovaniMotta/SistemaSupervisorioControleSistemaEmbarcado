@@ -30,11 +30,6 @@ namespace WindowsFormsApplication1
         public FormularioPrincipal()
         {
             InitializeComponent();
-
-            if (nivelSuperiorText.InvokeRequired)
-            {
-                nivelSuperiorText.Invoke(new MethodInvoker(delegate { percentualSuperior = nivelSuperiorText.Text;}));
-            }
         }
 
         /*
