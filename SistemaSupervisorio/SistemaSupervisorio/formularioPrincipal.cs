@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Threading;
 
 
-namespace WindowsFormsApplication1
+namespace SistemaSupervisorio
 {
     /* @autor Diovani Bernardi da Motta
      * Classe responsavel por implementar a interface gráfica de contato com o usuario

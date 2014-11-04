@@ -5,7 +5,7 @@ using System.Text;
 using System.IO.Ports; // biblioteca responsavel por realizar a comunicação com a API do Windows
 
 
-namespace WindowsFormsApplication1
+namespace SistemaSupervisorio
 {
     /*
      * @autor Diovani Bernardi da Motta

@@ -8,7 +8,7 @@
     <ProjectGuid>{7796FBD0-B05A-4B77-AB68-DE21F500E486}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication1</RootNamespace>
+    <RootNamespace>SistemaSupervisorio</RootNamespace>
     <AssemblyName>SistemaSupervisorio</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -108,11 +108,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="imagens\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="icone.ico" />
+    <None Include="icon\atualizar.ico" />
+    <None Include="icon\desconectar.ico" />
+    <None Include="imagens\fundo.jpg" />
     <None Include="icon\conectar.ico" />
   </ItemGroup>
   <ItemGroup>

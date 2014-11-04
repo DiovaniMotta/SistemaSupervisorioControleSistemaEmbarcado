@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace SistemaSupervisorio
 {
     public partial class FormularioPrincipal
     {
@@ -50,6 +50,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.listaBitsSegundo = new System.Windows.Forms.ComboBox();
             this.painelPortaSerial = new System.Windows.Forms.GroupBox();
+            this.botaoAtualizarSerial = new System.Windows.Forms.Button();
             this.lblPorta = new System.Windows.Forms.Label();
             this.listaPortas = new System.Windows.Forms.ComboBox();
             this.painelCaixaAguaSuperior = new System.Windows.Forms.FlowLayoutPanel();
@@ -85,7 +86,6 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
-            this.botaoAtualizarSerial = new System.Windows.Forms.Button();
             this.painelConfiguracaoSerial.SuspendLayout();
             this.painelStatus.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -105,11 +105,12 @@
             // 
             // btnLigado
             // 
-            this.btnLigado.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLigado.BackgroundImage")));
+            this.btnLigado.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.btnLigado.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnLigado.Image = global::SistemaSupervisorio.Properties.Resources.conectar;
             this.btnLigado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLigado.ImageKey = "(none)";
-            this.btnLigado.Location = new System.Drawing.Point(28, 471);
+            this.btnLigado.Location = new System.Drawing.Point(15, 471);
             this.btnLigado.Name = "btnLigado";
             this.btnLigado.Size = new System.Drawing.Size(145, 38);
             this.btnLigado.TabIndex = 1;
@@ -119,10 +120,10 @@
             // 
             // btnDesligado
             // 
-            this.btnDesligado.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDesligado.BackgroundImage")));
+            this.btnDesligado.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.btnDesligado.Enabled = false;
             this.btnDesligado.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDesligado.Image = ((System.Drawing.Image)(resources.GetObject("btnDesligado.Image")));
+            this.btnDesligado.Image = global::SistemaSupervisorio.Properties.Resources.desconectar;
             this.btnDesligado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDesligado.Location = new System.Drawing.Point(179, 471);
             this.btnDesligado.Name = "btnDesligado";
@@ -136,7 +137,7 @@
             // painelConfiguracaoSerial
             // 
             this.painelConfiguracaoSerial.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.painelConfiguracaoSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelConfiguracaoSerial.BackgroundImage")));
+            this.painelConfiguracaoSerial.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelConfiguracaoSerial.Controls.Add(this.painelStatus);
             this.painelConfiguracaoSerial.Controls.Add(this.groupBox2);
             this.painelConfiguracaoSerial.Controls.Add(this.groupBox1);
@@ -159,7 +160,7 @@
             // painelStatus
             // 
             this.painelStatus.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.painelStatus.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelStatus.BackgroundImage")));
+            this.painelStatus.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelStatus.Controls.Add(this.conexao);
             this.painelStatus.ForeColor = System.Drawing.SystemColors.Window;
             this.painelStatus.Location = new System.Drawing.Point(6, 380);
@@ -182,7 +183,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox2.BackgroundImage")));
+            this.groupBox2.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.listaControleFluxo);
             this.groupBox2.Location = new System.Drawing.Point(6, 315);
@@ -214,7 +215,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox1.BackgroundImage")));
+            this.groupBox1.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.listaBitsParada);
             this.groupBox1.Location = new System.Drawing.Point(6, 258);
@@ -246,7 +247,7 @@
             // 
             // painelParidade
             // 
-            this.painelParidade.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelParidade.BackgroundImage")));
+            this.painelParidade.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelParidade.Controls.Add(this.label3);
             this.painelParidade.Controls.Add(this.listaParidade);
             this.painelParidade.Location = new System.Drawing.Point(6, 199);
@@ -278,7 +279,7 @@
             // 
             // painelBitsDados
             // 
-            this.painelBitsDados.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelBitsDados.BackgroundImage")));
+            this.painelBitsDados.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelBitsDados.Controls.Add(this.label2);
             this.painelBitsDados.Controls.Add(this.listaBitsDados);
             this.painelBitsDados.Location = new System.Drawing.Point(6, 136);
@@ -310,7 +311,7 @@
             // 
             // painelBitSegundos
             // 
-            this.painelBitSegundos.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelBitSegundos.BackgroundImage")));
+            this.painelBitSegundos.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelBitSegundos.Controls.Add(this.label1);
             this.painelBitSegundos.Controls.Add(this.listaBitsSegundo);
             this.painelBitSegundos.Location = new System.Drawing.Point(6, 75);
@@ -343,7 +344,7 @@
             // 
             // painelPortaSerial
             // 
-            this.painelPortaSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelPortaSerial.BackgroundImage")));
+            this.painelPortaSerial.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelPortaSerial.Controls.Add(this.botaoAtualizarSerial);
             this.painelPortaSerial.Controls.Add(this.lblPorta);
             this.painelPortaSerial.Controls.Add(this.listaPortas);
@@ -352,6 +353,17 @@
             this.painelPortaSerial.Size = new System.Drawing.Size(342, 50);
             this.painelPortaSerial.TabIndex = 5;
             this.painelPortaSerial.TabStop = false;
+            // 
+            // botaoAtualizarSerial
+            // 
+            this.botaoAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.BackgroundImage")));
+            this.botaoAtualizarSerial.Image = global::SistemaSupervisorio.Properties.Resources.atualizar;
+            this.botaoAtualizarSerial.Location = new System.Drawing.Point(283, 14);
+            this.botaoAtualizarSerial.Name = "botaoAtualizarSerial";
+            this.botaoAtualizarSerial.Size = new System.Drawing.Size(44, 30);
+            this.botaoAtualizarSerial.TabIndex = 5;
+            this.botaoAtualizarSerial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.botaoAtualizarSerial.UseVisualStyleBackColor = true;
             // 
             // lblPorta
             // 
@@ -531,7 +543,7 @@
             // 
             // painelLigarMotor
             // 
-            this.painelLigarMotor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelLigarMotor.BackgroundImage")));
+            this.painelLigarMotor.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelLigarMotor.Controls.Add(this.botaoMotor);
             this.painelLigarMotor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.painelLigarMotor.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -557,7 +569,7 @@
             // 
             // painelBomba
             // 
-            this.painelBomba.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelBomba.BackgroundImage")));
+            this.painelBomba.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelBomba.Controls.Add(this.botaoBomba);
             this.painelBomba.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.painelBomba.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -583,7 +595,7 @@
             // 
             // painelNivelRecipienteSuperior
             // 
-            this.painelNivelRecipienteSuperior.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelNivelRecipienteSuperior.BackgroundImage")));
+            this.painelNivelRecipienteSuperior.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelNivelRecipienteSuperior.Controls.Add(this.nivelSuperiorText);
             this.painelNivelRecipienteSuperior.Controls.Add(this.lblNivelSuperior);
             this.painelNivelRecipienteSuperior.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -618,7 +630,7 @@
             // 
             // painelRecipienteInferior
             // 
-            this.painelRecipienteInferior.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("painelRecipienteInferior.BackgroundImage")));
+            this.painelRecipienteInferior.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.painelRecipienteInferior.Controls.Add(this.nivelInferiorText);
             this.painelRecipienteInferior.Controls.Add(this.label6);
             this.painelRecipienteInferior.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -653,7 +665,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("groupBox3.BackgroundImage")));
+            this.groupBox3.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.groupBox3.Controls.Add(this.botaoAtivar);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -706,23 +718,12 @@
             this.flowLayoutPanel6.Size = new System.Drawing.Size(23, 100);
             this.flowLayoutPanel6.TabIndex = 30;
             // 
-            // botaoAtualizarSerial
-            // 
-            this.botaoAtualizarSerial.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.BackgroundImage")));
-            this.botaoAtualizarSerial.Image = ((System.Drawing.Image)(resources.GetObject("botaoAtualizarSerial.Image")));
-            this.botaoAtualizarSerial.Location = new System.Drawing.Point(283, 14);
-            this.botaoAtualizarSerial.Name = "botaoAtualizarSerial";
-            this.botaoAtualizarSerial.Size = new System.Drawing.Size(44, 30);
-            this.botaoAtualizarSerial.TabIndex = 5;
-            this.botaoAtualizarSerial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.botaoAtualizarSerial.UseVisualStyleBackColor = true;
-            // 
             // FormularioPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1370, 708);
             this.Controls.Add(this.flowLayoutPanel6);
