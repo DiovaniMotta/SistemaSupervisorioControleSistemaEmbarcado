@@ -645,7 +645,7 @@
   <data name="botaoAtivar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADr4AAA6+AepCscAAAATCSURBVEhLjVVdTFtlGG5040aSwdpzyi6ck7lkcXpjvHRe
+        YQUAAAAJcEhZcwAADrwAAA68AZW8ckkAAATCSURBVEhLjVVdTFtlGG5040aSwdpzyi6ck7lkcXpjvHRe
         qIlTt4tFsy0zWbLFMcI24LSlUNjiBs6LGV0YRkOEMOfC3J+gEAlzzmSLaOSnpT39oQWkpYzQMQrtZNFs
         e/yerxQLEkKTJ9/b932e5/3+zjkGwzK/IufqLYVeQ+Xh/tWdR505Q5pHnSIYM1foMVQe1bOeX85jydqR
         HuPmw3rWpXLvuoeN8R3oSB7Dr8l6dCcvSDBmjjVyinxZ3x7pyd68okYlrjUHtMBTycapHeiKN8KfuIFA
@@ -669,6 +669,12 @@
         RK5CYII=
 </value>
   </data>
+  <metadata name="comunicacao.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="ThreadComunicao.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>124, 17</value>
+  </metadata>
   <metadata name="$this.TrayLargeIcon" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

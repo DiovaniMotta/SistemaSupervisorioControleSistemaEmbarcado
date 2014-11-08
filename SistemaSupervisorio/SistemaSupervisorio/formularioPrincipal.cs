@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO.Ports;
 
 
 namespace SistemaSupervisorio
@@ -17,7 +18,7 @@ namespace SistemaSupervisorio
     public partial class FormularioPrincipal : Form
     {
         // instacio um objeto do tipo Comunicação serial 
-        public ComunicaoSerial comunicacao = new ComunicaoSerial();
+        public ComunicaoSerial serialPorta = new ComunicaoSerial();
         public int nivelReservatorioSuperior = 0;
         public int nivelReservatorioInferior = 0;
         public String percentualSuperior = "0 %";
@@ -29,75 +30,106 @@ namespace SistemaSupervisorio
          */
         public FormularioPrincipal()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + e.Message, "Erro");
+            }
         }
 
+        /** Funcao responsavel por configurar a serial
+         **/
+        private void configureSerial()
+        {
+            try
+            {
+                comunicacao.PortName = string.Concat(listaPortas.SelectedItem);
+                comunicacao.BaudRate = Convert.ToInt32(listaBitsSegundo.SelectedItem);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + e.Message, "Erro");
+            }
+        }
         /*
          *  Função invocada durante o processo de carregamento do form para o usuario
          */
         private void FormularioPrincipal_Load(object sender, EventArgs e)
         {
-            // retorno uma lista de portas seriais configuradas no computador
-            String[] retorno = comunicacao.listarPortasSeriais();
-            // itero toda a lista de portas instanciadas
-            foreach(String port in retorno){
-                // adiciono a lista que será exibida para o usuario com as portas disponiveis na maquina
-                listaPortas.Items.Add(port);
-            }
-
-            if(listaPortas.Items.Count > 0)
+            try
             {
-                //seleciono a primeira porta serial encontrada
-                listaPortas.SelectedIndex = 0;
-            }
-            // itero a lista de bits por segundo usado na conexao
-            foreach(String bitSegundo in comunicacao.listaBitsSegundos)
-            {    
-                // adiciono ao combo
-                listaBitsSegundo.Items.Add(bitSegundo);
-            }
+                // retorno uma lista de portas seriais configuradas no computador
+                String[] retorno = serialPorta.listarPortasSeriais();
+                // itero toda a lista de portas instanciadas
+                foreach (String port in retorno)
+                {
+                    // adiciono a lista que será exibida para o usuario com as portas disponiveis na maquina
+                    listaPortas.Items.Add(port);
+                }
 
-            // seleciono o primeiro item da lista
-            listaBitsSegundo.SelectedIndex = 0;
+                if (listaPortas.Items.Count > 0)
+                {
+                    //seleciono a primeira porta serial encontrada
+                    listaPortas.SelectedIndex = 0;
+                }
 
-            // itero a lista de bits de dados usados na transmissap
-            foreach(String bitDados in comunicacao.listaBitsDados)
+                // itero a lista de bits por segundo usado na conexao
+                foreach (String bitSegundo in serialPorta.listaBitsSegundos)
+                {
+                    // adiciono ao combo
+                    listaBitsSegundo.Items.Add(bitSegundo);
+                }
+
+                // seleciono o primeiro item da lista
+                listaBitsSegundo.SelectedIndex = 0;
+
+                // itero a lista de bits de dados usados na transmissap
+                foreach (String bitDados in serialPorta.listaBitsDados)
+                {
+                    // adiciono ao combo
+                    listaBitsDados.Items.Add(bitDados);
+                }
+
+                // seleciono a primeira posicao
+                listaBitsDados.SelectedIndex = 0;
+
+                // adiciono ao combobox todas as opçoes de paridade possivel
+                foreach (String paridade in serialPorta.listaParidade)
+                {
+                    // adiciono a lista
+                    listaParidade.Items.Add(paridade);
+                }
+
+                // posiciono na primeira opção de paridade
+                listaParidade.SelectedIndex = 0;
+
+                //itero todas as opçoes de bit de parada
+                foreach (String bitParada in serialPorta.listaBitsParada)
+                {
+                    // adiciono ao combo
+                    listaBitsParada.Items.Add(bitParada);
+                }
+
+                // seleciono a primeira posicao
+                listaBitsParada.SelectedIndex = 0;
+
+                //itero toda a lista de controle de fluxo
+                foreach (String controle in serialPorta.listaControleFluxo)
+                {
+                    // adiciono ao combo
+                    listaControleFluxo.Items.Add(controle);
+                }
+
+                // seleciono a primeira opção do combo
+                listaControleFluxo.SelectedIndex = 0;
+            }
+            catch (Exception ex)
             {
-                // adiciono ao combo
-                listaBitsDados.Items.Add(bitDados);
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + ex.Message, "Erro");
             }
-            // seleciono a primeira posicao
-            listaBitsDados.SelectedIndex = 0;
-
-            // adiciono ao combobox todas as opçoes de paridade possivel
-            foreach(String paridade in comunicacao.listaParidade)
-            {
-                // adiciono a lista
-                listaParidade.Items.Add(paridade);
-            }
-
-            // posiciono na primeira opção de paridade
-            listaParidade.SelectedIndex = 0;
-
-            //itero todas as opçoes de bit de parada
-            foreach(String bitParada in comunicacao.listaBitsParada)
-            {
-                // adiciono ao combo
-                listaBitsParada.Items.Add(bitParada);
-            }
-
-            // seleciono a primeira posicao
-            listaBitsParada.SelectedIndex = 0;
-
-            //itero toda a lista de controle de fluxo
-            foreach(String controle in comunicacao.listaControleFluxo)
-            {
-                // adiciono ao combo
-                listaControleFluxo.Items.Add(controle);
-            }
-
-            // seleciono a primeira opção do combo
-            listaControleFluxo.SelectedIndex = 0;
         }
 
         private void btnLigado_Click(object sender, EventArgs e)
@@ -107,18 +139,13 @@ namespace SistemaSupervisorio
                 MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) ==
                 System.Windows.Forms.DialogResult.Yes)
             {
-                 //repasso os dados selecionados para a classe responsavel por configurar a conexao serial
-                comunicacao.setBitsDadosSelecionado(string.Concat(listaBitsDados.SelectedItem));
-                comunicacao.setBitsParadaSelecionada(string.Concat(listaBitsParada.SelectedItem));
-                comunicacao.setBitsSegundoSelecionado(string.Concat(listaBitsSegundo.SelectedItem));
-                comunicacao.setControleFluxoSelecionado(string.Concat(listaControleFluxo.SelectedItem));
-                comunicacao.setParidadeSelecionado(string.Concat(listaParidade.SelectedItem));
-                comunicacao.setPortaSerialSelecionada(string.Concat(listaPortas.SelectedItem));
 
                 //chamada a funcao responsavel por configurar a comunicação serial
-                comunicacao.configureSerial();
+                configureSerial();
+                //abro a porta serial 
+                comunicacao.Open();
                 // se for possivel iniciar a comunicação serial
-                serial = comunicacao.initializeSerial();
+                serial = comunicacao.IsOpen;
                 // se o retorno for verdadeiro
                 if (serial)
                 {
@@ -128,12 +155,10 @@ namespace SistemaSupervisorio
                     // informo ao usuario que a conexao foi realizada
                     conexao.Text = "Conectado";
                     conexao.BackColor = Color.Green;
-                    MessageBox.Show("Conexão realizada com sucesso!","Confirmação");
+                    MessageBox.Show("Conexão realizada com sucesso!", "Confirmação");
                     botaoMotor.Enabled = true;
                     botaoBomba.Enabled = true;
                     botaoAtivar.Enabled = true;
-                    //encerro a comunicacao serial
-                    comunicacao.closedSerial();             
                 }
                 else
                 {
@@ -153,14 +178,17 @@ namespace SistemaSupervisorio
                 System.Windows.Forms.DialogResult.Yes)
             {
                 // envio os comandos para desligar o motor
-                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_BOMBA);
-                Thread.Sleep(20);
-                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_MOTOR);
-                   
-                 // se for possivel encerar a comunicação serial
-                 serial = !comunicacao.closedSerial();
+                comunicacao.Write(ComunicaoSerial.DESLIGAR_BOMBA);
+                comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
+
+                // encerro a comunicao serial
+                comunicacao.Close();
+                // se for possivel encerar a comunicação serial
+                serial = !comunicacao.IsOpen;
+                // se a variavel de controle for falsa
                 if (!serial)
                 {
+                    ThreadComunicao.CancelAsync(); // encerro a e
                     //desabilito o botao desconectar e habilito o botao conectar
                     btnDesligado.Enabled = false;
                     btnLigado.Enabled = true;
@@ -178,32 +206,32 @@ namespace SistemaSupervisorio
                     botaoBomba.Text = "Desligado";
                     botaoMotor.Text = "Desligado";
                     botaoAtivar.Text = "Desligado";
-                    MessageBox.Show("Comunicação Encerrada!","Confirmação");
+                    MessageBox.Show("Comunicação Encerrada!", "Confirmação");
                 }
                 else
                 {
-                    MessageBox.Show("Não foi possível finalizar a comunicação serial. Verifique!","Confirmação");
+                    MessageBox.Show("Não foi possível finalizar a comunicação serial. Verifique!", "Confirmação");
                 }
             }
             else
             {
-                MessageBox.Show("Operação abortada pelo usuário!","Confirmação");
+                MessageBox.Show("Operação abortada pelo usuário!", "Confirmação");
             }
         }
 
         private void botaoBomba_Click(object sender, EventArgs e)
         {
-            if(botaoBomba.BackColor == Color.Red)
+            if (botaoBomba.BackColor == Color.Red)
             {
                 botaoBomba.Text = "Ligado";
                 botaoBomba.BackColor = Color.Green;
-                comunicacao.sendConfigure(ComunicaoSerial.LIGAR_BOMBA);
+                comunicacao.Write(ComunicaoSerial.LIGAR_BOMBA);
             }
-            else 
+            else
             {
                 botaoBomba.Text = "Desligado";
                 botaoBomba.BackColor = Color.Red;
-                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_BOMBA);
+                comunicacao.Write(ComunicaoSerial.DESLIGAR_BOMBA);
             }
         }
 
@@ -213,246 +241,241 @@ namespace SistemaSupervisorio
             {
                 botaoMotor.Text = "Ligado";
                 botaoMotor.BackColor = Color.Green;
-                comunicacao.sendConfigure(ComunicaoSerial.LIGAR_MOTOR);
+                comunicacao.Write(ComunicaoSerial.LIGAR_MOTOR);
             }
-            else 
+            else
             {
                 botaoMotor.Text = "Desligado";
                 botaoMotor.BackColor = Color.Red;
-                comunicacao.sendConfigure(ComunicaoSerial.DESLIGAR_MOTOR);
+                comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
             }
         }
 
         private void botaoAtualizarSerial_Click(object sender, EventArgs e)
         {
             //capturo todas as portas serias contidas no computador
-            String[] portas = comunicacao.listarPortasSeriais();
+            String[] portas = serialPorta.listarPortasSeriais();
             //limpo a lista de portas presento no checkbox
             listaPortas.Items.Clear();
             //itero toda a lista
-            foreach(String port in portas)
+            foreach (String port in portas)
             {
                 // adiciono ao checkbox
                 listaPortas.Items.Add(port);
             }
             //seleciono a primeira posicao do checkbox
-            if(listaPortas.Items.Count > 0)
+            if (listaPortas.Items.Count > 0)
             {
-              listaPortas.SelectedIndex = 0;
+                listaPortas.SelectedIndex = 0;
             }
             // repinto o checkbox
             listaPortas.Refresh();
         }
-            /*
-             *  Função responsavel por efetuar a leitura do nivel de águal contido em  cada um dos recipientes
-             */
-            public void loadNivel()
-            {
 
-                // enquanto a comunicação serial estiver ativa.    
-                while (serial)
-                {
-                    comunicacao.initializeSerial();
-                    // efetuo a leitura da porta serial
-                    String valorLido = comunicacao.readSerial();
-                    // se a informação lida contiver o caractere S, que dizer que essa informação é referente ao nivel do reservatorio superior
-                    if (valorLido.Contains("S"))
-                    {
-                        String valorInteiro;
-                        //removo o primeiro caractere lido da informação recebida da porta serial
-                        String valor = valorLido.Substring(1, (valorLido.Length - 1));
-                        //removo a parte decimal da string;
-                        if (valor.IndexOf('.') > -1)
-                        {
-                          valorInteiro = valor.Substring(0, valor.IndexOf('.'));
-                        }
-                        else {
-                           valorInteiro = valor.Substring(0,(valor.Length - 1));
-                        }
-                        // transformo o valor lido em um inteiro
-                        nivelReservatorioSuperior = int.Parse(valorInteiro);
-                        // repasso o valor lido para o objeto verticalProgressBar
-                        caixaAguaSuperior.Value = nivelReservatorioSuperior;
-                        percentualSuperior = Convert.ToString(nivelReservatorioSuperior);
-                        // escrevo no campo de texto
-                        transfereSuperior(percentualSuperior+" %");
-                    }
-                    // se a informação lida convetiver o caractere I, que dizer que essa informação é referente ao nivel do reservatorio inferior
-                    else if (valorLido.Contains("I"))
-                    {
-                        String valorInteiro;
-                        //removo o primeiro caractere lido da informação recebida da porta serial
-                        String valor = valorLido.Substring(1, (valorLido.Length - 1));
-                        //removo a parte decimal da string;
-                        if (valor.IndexOf('.') > -1)
-                        {
-                            valorInteiro = valor.Substring(0, valor.IndexOf('.'));
-                        }
-                        else
-                        {
-                            valorInteiro = valor.Substring(0,(valor.Length - 1));
-                        }
-                         
-                        // transformo o valor lido em um inteiro
-                        nivelReservatorioInferior = int.Parse(valorInteiro);
-                        // repasso o valor lido para o objeto verticalProgressBar
-                        caixaAguaInferior.Value = nivelReservatorioInferior;
-                        percentualInferior = Convert.ToString(nivelReservatorioInferior);
-                        // escrevo no campo de texto
-                        transfereInferior(percentualInferior+" %");
-                    }
-                    else if(valorLido.Contains("B"))
-                    {
-                        botaoBomba.Text = "Ligado";
-                        botaoBomba.BackColor = Color.Green;
-                    }
-                    else if (valorLido.Contains("b"))
-                    {
-                        botaoBomba.Text = "Desligado";
-                        botaoBomba.BackColor = Color.Red;
-                    }
-                    else if (valorLido.Contains("M"))
-                    {
-                        botaoMotor.Text = "Ligado";
-                        botaoMotor.BackColor = Color.Green;
-                    }
-                    else if (valorLido.Contains("m"))
-                    {
-                        botaoMotor.Text = "Desligado";
-                        botaoMotor.BackColor = Color.Red;
-                    }
-                    else if(valorLido.Contains("L"))
-                    {
-                        botaoAtivar.Text = "Ligado";
-                        botaoAtivar.BackColor = Color.Green;
-                    }
-                    else if (valorLido.Contains("l"))
-                    {
-                        botaoAtivar.Text = "Desligado";
-                        botaoAtivar.BackColor = Color.Red;
-                    }
-                    // paro a execução da thread por 1s
-                    //Thread.Sleep(100);
-                    // encerro a execução da thread
-                    comunicacao.closedSerial();
-                }
-            }
+        // funcao executada quando o formulario é fechado
+        private void FormularioPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
 
-            /* Funcao responsavel por encerrar a execução de uma thread
-             */
-            public void closed()
+        // funcao executada quando o botao ativar está ativa
+        private void botaoAtivar_Click(object sender, EventArgs e)
+        {
+            if (botaoAtivar.BackColor == Color.Red)
             {
-                if (thread != null)
+                botaoAtivar.Text = "Ligado";
+                botaoAtivar.BackColor = Color.Green;
+                serial = comunicacao.IsOpen;
+                if (serial)
                 {
-                    try
-                    {
-                        if (thread.IsAlive)
-                        {
-                            thread.Interrupt(); // encerro a execução da thread
-                            Thread.Sleep(20);
-                            thread.Abort();
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        if (thread.IsAlive)
-                        {
-                            thread.Abort();
-                            thread.Interrupt();
-                        }
-                    }
+                    comunicacao.Write(ComunicaoSerial.START); // envio o comando para conectar ao pic
+                    ThreadComunicao.RunWorkerAsync(); // inicio a thread que irá carregar o nivel da agua
                 }
                 else
                 {
-                    try
-                    {
-                        Application.Exit();
-                    }catch(Exception e){
-                        
-                    }
+                    MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
                 }
             }
-
-            // funcao executada quando o formulario é fechado
-            private void FormularioPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+            else
             {
-                Application.Exit();
-                this.closed();
-                comunicacao.closedSerial();
-            }
-
-           // funcao executada quando o botao ativar está ativa
-            private void botaoAtivar_Click(object sender, EventArgs e)
-            {
-                if (botaoAtivar.BackColor == Color.Red)
+                botaoAtivar.Text = "Desligado";
+                botaoAtivar.BackColor = Color.Red;
+                comunicacao.Write(ComunicaoSerial.RESET); // envio do comando para desligar o pic
+                serial = !comunicacao.IsOpen;
+                if (!serial)
                 {
-                    botaoAtivar.Text = "Ligado";
-                    botaoAtivar.BackColor = Color.Green;
-                    serial = comunicacao.initializeSerial();
-                    if (serial)
-                    {
-                        //inicializo a execução da thread
-                        thread = new Thread(new ThreadStart(loadNivel));
-                        thread.Start();
-                        comunicacao.sendConfigure(ComunicaoSerial.START);
-                        comunicacao.closedSerial();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!","Configuração");
-                    }
+
+                    comunicacao.Close();
+                    serial = false;
                 }
                 else
                 {
-                    botaoAtivar.Text = "Desligado";
-                    botaoAtivar.BackColor = Color.Red;
-                    serial = !comunicacao.closedSerial();
-                    
-                    if (!serial)
+                    MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
+                }
+            }
+        }
+
+        // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente superior
+        public void transfereSuperior(String text)
+        {
+            if (this.nivelSuperiorText.InvokeRequired)
+            {
+                this.nivelSuperiorText.Invoke((MethodInvoker)delegate()
+                {
+                    transfereSuperior(text);
+                });
+            }
+            else
+            {
+                this.nivelSuperiorText.Text = text;
+            }
+        }
+
+        // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente inferior
+        public void transfereInferior(String text)
+        {
+            if (this.nivelInferiorText.InvokeRequired)
+            {
+                this.nivelInferiorText.Invoke((MethodInvoker)delegate()
+                {
+                    transfereInferior(text);
+                });
+            }
+            else
+            {
+                this.nivelInferiorText.Text = text;
+            }
+        }
+
+        private void ThreadComunicao_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                while (!ThreadComunicao.CancellationPending)//loop enquanto o componente não for cancelado.
+                {
+                    if (comunicacao.BytesToRead > 0) // se houverem bits a serem recebidos da serial
                     {
-                          comunicacao.sendConfigure(ComunicaoSerial.RESET);
-                          comunicacao.closedSerial();
-                          serial = false;
-                          this.closed();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
+                        string palavra = comunicacao.ReadLine(); // leio a informação do canal serial
+                        ThreadComunicao.ReportProgress(0, palavra);//se for ler uma linha inteira.
                     }
                 }
             }
+            catch (Exception ee)
+            {
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + ee.Message, "Erro");
+            }
+        }
 
-            // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente superior
-           public void transfereSuperior(String text)
-           {
-               if(this.nivelSuperiorText.InvokeRequired)
-               {
-                   this.nivelSuperiorText.Invoke((MethodInvoker)delegate()
-                   {
-                       transfereSuperior(text);
-                   });
-               }
-               else 
-               {
-                   this.nivelSuperiorText.Text = text;
-               }
-           }
+        private void ThreadComunicao_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // repasso o valor lido da serial para a avariavel
+            string valorLido = Convert.ToString(e.UserState);
+            // se a informação lida contiver o caractere S, que dizer que essa informação é referente ao nivel do reservatorio superior
+            if (valorLido.Contains("S"))
+            {
+                String valorInteiro;
+                //removo o primeiro caractere lido da informação recebida da porta serial
+                String valor = valorLido.Substring(1, (valorLido.Length - 1));
 
-           // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente inferior
-           public void transfereInferior(String text)
-           {
-               if (this.nivelInferiorText.InvokeRequired)
-               {
-                   this.nivelInferiorText.Invoke((MethodInvoker)delegate()
-                   {
-                       transfereInferior(text);
-                   });
-               }
-               else
-               {
-                   this.nivelInferiorText.Text = text;
-               }
-           }
+                //removo a parte decimal da string;
+                if (valor.IndexOf('.') < -1)
+                {
+                    valorInteiro = valor;
+                }
+                else
+                {
+                    valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                }
 
-      }
+                // transformo o valor lido em um inteiro
+                nivelReservatorioSuperior = Convert.ToInt32(valorInteiro);
+                // repasso o valor lido para o objeto verticalProgressBar
+                caixaAguaSuperior.Value = nivelReservatorioSuperior;
+                percentualSuperior = Convert.ToString(nivelReservatorioSuperior);
+                // escrevo no campo de texto
+                transfereSuperior(percentualSuperior + " %");
+            }
+            // se a informação lida convetiver o caractere I, que dizer que essa informação é referente ao nivel do reservatorio inferior
+            else if (valorLido.Contains("I"))
+            {
+                String valorInteiro;
+                //removo o primeiro caractere lido da informação recebida da porta serial
+                String valor = valorLido.Substring(1, (valorLido.Length - 1));
+
+                //removo a parte decimal da string;
+                if (valor.IndexOf('.') < -1)
+                {
+                    valorInteiro = valor;
+                }
+                else
+                {
+                    valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                }
+
+                // transformo o valor lido em um inteiro
+                nivelReservatorioInferior = Convert.ToInt32(valorInteiro);
+                // repasso o valor lido para o objeto verticalProgressBar
+                caixaAguaInferior.Value = nivelReservatorioInferior;
+                percentualInferior = Convert.ToString(nivelReservatorioInferior);
+                // escrevo no campo de texto
+                transfereInferior(percentualInferior + " %");
+            }
+            else if (valorLido.Contains("B"))
+            {
+                botaoBomba.Text = "Ligado";
+                botaoBomba.BackColor = Color.Green;
+            }
+            else if (valorLido.Contains("b"))
+            {
+                botaoBomba.Text = "Desligado";
+                botaoBomba.BackColor = Color.Red;
+            }
+            else if (valorLido.Contains("M"))
+            {
+                botaoMotor.Text = "Ligado";
+                botaoMotor.BackColor = Color.Green;
+            }
+            else if (valorLido.Contains("m"))
+            {
+                botaoMotor.Text = "Desligado";
+                botaoMotor.BackColor = Color.Red;
+            }
+            else if (valorLido.Contains("L"))
+            {
+                botaoAtivar.Text = "Ligado";
+                botaoAtivar.BackColor = Color.Green;
+            }
+            else if (valorLido.Contains("l"))
+            {
+                botaoAtivar.Text = "Desligado";
+                botaoAtivar.BackColor = Color.Red;
+            }
+        }
+
+        private void botaoAtualizarSerial_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                // retorno uma lista de portas seriais configuradas no computador
+                String[] retorno = SerialPort.GetPortNames();
+                // itero toda a lista de portas instanciadas
+                foreach (String port in retorno)
+                {
+                    // adiciono a lista que será exibida para o usuario com as portas disponiveis na maquina
+                    listaPortas.Items.Add(port);
+                }
+
+                if (listaPortas.Items.Count > 0)
+                {
+                    //seleciono a primeira porta serial encontrada
+                    listaPortas.SelectedIndex = 0;
+                }
+                listaPortas.Refresh();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + exc.Message, "Erro");
+            } 
+        }
+    }
 }

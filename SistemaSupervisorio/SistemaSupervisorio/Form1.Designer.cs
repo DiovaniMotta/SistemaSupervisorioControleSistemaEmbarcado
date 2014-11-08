@@ -2,10 +2,6 @@
 {
     public partial class FormularioPrincipal
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        public System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -28,6 +24,7 @@
         /// </summary>
         public void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormularioPrincipal));
             this.btnLigado = new System.Windows.Forms.Button();
             this.btnDesligado = new System.Windows.Forms.Button();
@@ -86,6 +83,8 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.comunicacao = new System.IO.Ports.SerialPort(this.components);
+            this.ThreadComunicao = new System.ComponentModel.BackgroundWorker();
             this.painelConfiguracaoSerial.SuspendLayout();
             this.painelStatus.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -107,7 +106,6 @@
             // 
             this.btnLigado.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
             this.btnLigado.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnLigado.Image = global::SistemaSupervisorio.Properties.Resources.conectar;
             this.btnLigado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLigado.ImageKey = "(none)";
             this.btnLigado.Location = new System.Drawing.Point(15, 471);
@@ -364,6 +362,7 @@
             this.botaoAtualizarSerial.TabIndex = 5;
             this.botaoAtualizarSerial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.botaoAtualizarSerial.UseVisualStyleBackColor = true;
+            this.botaoAtualizarSerial.Click += new System.EventHandler(this.botaoAtualizarSerial_Click_1);
             // 
             // lblPorta
             // 
@@ -718,6 +717,13 @@
             this.flowLayoutPanel6.Size = new System.Drawing.Size(23, 100);
             this.flowLayoutPanel6.TabIndex = 30;
             // 
+            // ThreadComunicao
+            // 
+            this.ThreadComunicao.WorkerReportsProgress = true;
+            this.ThreadComunicao.WorkerSupportsCancellation = true;
+            this.ThreadComunicao.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ThreadComunicao_DoWork);
+            this.ThreadComunicao.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.ThreadComunicao_ProgressChanged);
+            // 
             // FormularioPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -846,6 +852,9 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
         private System.Windows.Forms.Button botaoAtualizarSerial;
+        private System.IO.Ports.SerialPort comunicacao;
+        private System.ComponentModel.IContainer components;
+        private System.ComponentModel.BackgroundWorker ThreadComunicao;
     }
 }
 

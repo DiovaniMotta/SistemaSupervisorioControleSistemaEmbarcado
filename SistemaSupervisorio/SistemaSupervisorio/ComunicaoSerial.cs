@@ -61,7 +61,7 @@ namespace SistemaSupervisorio
                 this.configuracao();
 
             }
-            catch(Exception e){}
+            catch{}
         }
 
         /* Função responsavel por retornar o nome de todas as protas seriais disponiveis na maquina
@@ -74,7 +74,7 @@ namespace SistemaSupervisorio
                 portasSeriais = SerialPort.GetPortNames();
                 // retorna a lista de portas seriais
             }
-            catch(Exception e){}
+            catch{}
                return portasSeriais;
         }
 
@@ -129,7 +129,7 @@ namespace SistemaSupervisorio
                     portaSerial.Parity = Parity.Space;
                 }
             }
-            catch(Exception e){
+            catch{
                 return false;
             }
 
@@ -155,7 +155,7 @@ namespace SistemaSupervisorio
                     return false;
                 }
             }
-            catch(Exception e){
+            catch{
                 return false;
             }
         }
@@ -174,7 +174,7 @@ namespace SistemaSupervisorio
 
                 }
             }
-            catch(Exception e){}
+            catch{}
             
             return leitura;
         }
@@ -212,7 +212,7 @@ namespace SistemaSupervisorio
                 listaControleFluxo.Add("Hardware");
                 listaControleFluxo.Add("Nenhuma");
             }
-            catch (Exception e) { }
+            catch{ }
           }
 
         /* Função responsavel por verificar se foi possivel abrir a porta serial
@@ -229,7 +229,7 @@ namespace SistemaSupervisorio
                     return true;
                 }
             }
-            catch(Exception e){
+            catch{
                return false;
             }
             return false;
@@ -249,7 +249,7 @@ namespace SistemaSupervisorio
                     return true;
                 }
             }
-            catch(Exception e){
+            catch{
                 return false;
             }
             return false;
