@@ -77,7 +77,7 @@
             this.painelRecipienteInferior = new System.Windows.Forms.GroupBox();
             this.nivelInferiorText = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.painelLigar = new System.Windows.Forms.GroupBox();
             this.botaoAtivar = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
@@ -99,7 +99,7 @@
             this.painelBomba.SuspendLayout();
             this.painelNivelRecipienteSuperior.SuspendLayout();
             this.painelRecipienteInferior.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.painelLigar.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnLigado
@@ -615,7 +615,7 @@
             this.nivelSuperiorText.ReadOnly = true;
             this.nivelSuperiorText.Size = new System.Drawing.Size(100, 26);
             this.nivelSuperiorText.TabIndex = 1;
-            this.nivelSuperiorText.Text = "0,00";
+            this.nivelSuperiorText.Text = "0 %";
             this.nivelSuperiorText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblNivelSuperior
@@ -650,7 +650,7 @@
             this.nivelInferiorText.ReadOnly = true;
             this.nivelInferiorText.Size = new System.Drawing.Size(100, 26);
             this.nivelInferiorText.TabIndex = 2;
-            this.nivelInferiorText.Text = "0,00";
+            this.nivelInferiorText.Text = "0 %";
             this.nivelInferiorText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
@@ -662,18 +662,18 @@
             this.label6.TabIndex = 1;
             this.label6.Text = "Nível";
             // 
-            // groupBox3
+            // painelLigar
             // 
-            this.groupBox3.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
-            this.groupBox3.Controls.Add(this.botaoAtivar);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox3.Location = new System.Drawing.Point(16, 546);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(354, 72);
-            this.groupBox3.TabIndex = 26;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Ligar Sistema Embarcado";
+            this.painelLigar.BackgroundImage = global::SistemaSupervisorio.Properties.Resources.fundo;
+            this.painelLigar.Controls.Add(this.botaoAtivar);
+            this.painelLigar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.painelLigar.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.painelLigar.Location = new System.Drawing.Point(16, 546);
+            this.painelLigar.Name = "painelLigar";
+            this.painelLigar.Size = new System.Drawing.Size(354, 72);
+            this.painelLigar.TabIndex = 26;
+            this.painelLigar.TabStop = false;
+            this.painelLigar.Text = "Ligar Sistema Embarcado";
             // 
             // botaoAtivar
             // 
@@ -736,7 +736,7 @@
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.painelLigar);
             this.Controls.Add(this.painelRecipienteInferior);
             this.Controls.Add(this.painelNivelRecipienteSuperior);
             this.Controls.Add(this.painelBomba);
@@ -787,7 +787,7 @@
             this.painelNivelRecipienteSuperior.PerformLayout();
             this.painelRecipienteInferior.ResumeLayout(false);
             this.painelRecipienteInferior.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
+            this.painelLigar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -845,7 +845,7 @@
         public System.Windows.Forms.Label lblNivelSuperior;
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.TextBox nivelInferiorText;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox painelLigar;
         private System.Windows.Forms.Button botaoAtivar;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;

@@ -94,7 +94,7 @@ namespace SistemaSupervisorio
                 }
 
                 // seleciono a primeira posicao
-                listaBitsDados.SelectedIndex = 0;
+                listaBitsDados.SelectedIndex = 4;
 
                 // adiciono ao combobox todas as opçoes de paridade possivel
                 foreach (String paridade in serialPorta.listaParidade)
@@ -104,7 +104,7 @@ namespace SistemaSupervisorio
                 }
 
                 // posiciono na primeira opção de paridade
-                listaParidade.SelectedIndex = 0;
+                listaParidade.SelectedIndex = 2;
 
                 //itero todas as opçoes de bit de parada
                 foreach (String bitParada in serialPorta.listaBitsParada)
@@ -124,7 +124,7 @@ namespace SistemaSupervisorio
                 }
 
                 // seleciono a primeira opção do combo
-                listaControleFluxo.SelectedIndex = 0;
+                listaControleFluxo.SelectedIndex = 2;
             }
             catch (Exception ex)
             {
@@ -134,216 +134,280 @@ namespace SistemaSupervisorio
 
         private void btnLigado_Click(object sender, EventArgs e)
         {
-            // notifica o usuario, se o mesmo realmente deseja realizar a operação
-            if (MessageBox.Show("Deseja realmente se conectar com o Sistema Embarcado,\n com as configurações informadas ? ", "Confirmação", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) ==
-                System.Windows.Forms.DialogResult.Yes)
+            try
             {
-
-                //chamada a funcao responsavel por configurar a comunicação serial
-                configureSerial();
-                //abro a porta serial 
-                comunicacao.Open();
-                // se for possivel iniciar a comunicação serial
-                serial = comunicacao.IsOpen;
-                // se o retorno for verdadeiro
-                if (serial)
+                // notifica o usuario, se o mesmo realmente deseja realizar a operação
+                if (MessageBox.Show("Deseja realmente se conectar com o Sistema Embarcado,\n com as configurações informadas ? ", "Confirmação", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) ==
+                    System.Windows.Forms.DialogResult.Yes)
                 {
-                    //desabilito o botao conectar e habilito o botao desconectar
-                    btnDesligado.Enabled = true;
-                    btnLigado.Enabled = false;
-                    // informo ao usuario que a conexao foi realizada
-                    conexao.Text = "Conectado";
-                    conexao.BackColor = Color.Green;
-                    MessageBox.Show("Conexão realizada com sucesso!", "Confirmação");
-                    botaoMotor.Enabled = true;
-                    botaoBomba.Enabled = true;
-                    botaoAtivar.Enabled = true;
+
+                    //chamada a funcao responsavel por configurar a comunicação serial
+                    configureSerial();
+                    //abro a porta serial 
+                    comunicacao.Open();
+                    // se for possivel iniciar a comunicação serial
+                    if (comunicacao.IsOpen)
+                    {
+                        //desabilito o botao conectar e habilito o botao desconectar
+                        btnDesligado.Enabled = true;
+                        btnLigado.Enabled = false;
+                        // informo ao usuario que a conexao foi realizada
+                        conexao.Text = "Conectado";
+                        conexao.BackColor = Color.Green;
+                        MessageBox.Show("Conexão realizada com sucesso!", "Confirmação");
+                        botaoMotor.Enabled = true;
+                        botaoBomba.Enabled = true;
+                        botaoAtivar.Enabled = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show(" Não foi possivel iniciar a comunicação serial. Verifique as configurações!", "Confirmação");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show(" Não foi possivel iniciar a comunicação serial. Verifique as configurações!", "Confirmação");
+                    MessageBox.Show("Operação abortada pelo usuário!", "Confirmação");
                 }
             }
-            else
+            catch(Exception ecv)
             {
-                MessageBox.Show("Operação abortada pelo usuário!", "Confirmação");
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + ecv.Message, "Erro");
             }
         }
 
         private void btnDesligado_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Deseja realmente se desconectar do Sistema Embarcado ? ", "Confirmação", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) ==
-                System.Windows.Forms.DialogResult.Yes)
+            try
             {
-                // envio os comandos para desligar o motor
-                comunicacao.Write(ComunicaoSerial.DESLIGAR_BOMBA);
-                comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
-
-                // encerro a comunicao serial
-                comunicacao.Close();
-                // se for possivel encerar a comunicação serial
-                serial = !comunicacao.IsOpen;
-                // se a variavel de controle for falsa
-                if (!serial)
+                if (MessageBox.Show("Deseja realmente se desconectar do Sistema Embarcado ? ", "Confirmação", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) ==
+                    System.Windows.Forms.DialogResult.Yes)
                 {
-                    ThreadComunicao.CancelAsync(); // encerro a e
-                    //desabilito o botao desconectar e habilito o botao conectar
-                    btnDesligado.Enabled = false;
-                    btnLigado.Enabled = true;
-                    conexao.Text = "Desconectado";
-                    conexao.BackColor = Color.Red;
-                    // encerro a execução da conexao
-                    // desabilito os botoes da bomba e motor
-                    botaoBomba.Enabled = false;
-                    botaoMotor.Enabled = false;
-                    botaoAtivar.Enabled = false;
+                    // envio os comandos para desligar o motor
+                    comunicacao.Write(ComunicaoSerial.DESLIGAR_BOMBA);
+                    comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
 
-                    botaoMotor.BackColor = Color.Red;
-                    botaoBomba.BackColor = Color.Red;
-                    botaoAtivar.BackColor = Color.Red;
-                    botaoBomba.Text = "Desligado";
-                    botaoMotor.Text = "Desligado";
-                    botaoAtivar.Text = "Desligado";
-                    MessageBox.Show("Comunicação Encerrada!", "Confirmação");
+                    ThreadComunicao.CancelAsync(); // encerro a e
+                    // encerro a comunicao serial
+                    comunicacao.Close();
+                    // se for possivel encerar a comunicação serial
+                    if (!comunicacao.IsOpen)
+                    {
+                        //desabilito o botao desconectar e habilito o botao conectar
+                        btnDesligado.Enabled = false;
+                        btnLigado.Enabled = true;
+                        conexao.Text = "Desconectado";
+                        conexao.BackColor = Color.Red;
+                        // encerro a execução da conexao
+                        // desabilito os botoes da bomba e motor
+                        botaoBomba.Enabled = false;
+                        botaoMotor.Enabled = false;
+                        botaoAtivar.Enabled = false;
+
+                        botaoMotor.BackColor = Color.Red;
+                        botaoBomba.BackColor = Color.Red;
+                        botaoAtivar.BackColor = Color.Red;
+                        botaoBomba.Text = "Desligado";
+                        botaoMotor.Text = "Desligado";
+                        botaoAtivar.Text = "Desligado";
+                        MessageBox.Show("Comunicação Encerrada!", "Confirmação");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possível finalizar a comunicação serial. Verifique!", "Confirmação");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Não foi possível finalizar a comunicação serial. Verifique!", "Confirmação");
+                    MessageBox.Show("Operação abortada pelo usuário!", "Confirmação");
                 }
             }
-            else
+            catch(Exception cxe)
             {
-                MessageBox.Show("Operação abortada pelo usuário!", "Confirmação");
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + cxe.Message, "Erro");
             }
         }
 
         private void botaoBomba_Click(object sender, EventArgs e)
         {
-            if (botaoBomba.BackColor == Color.Red)
+            try
             {
-                botaoBomba.Text = "Ligado";
-                botaoBomba.BackColor = Color.Green;
-                comunicacao.Write(ComunicaoSerial.LIGAR_BOMBA);
+                if (botaoBomba.BackColor == Color.Red)
+                {
+                    botaoBomba.Text = "Ligado";
+                    botaoBomba.BackColor = Color.Green;
+                    comunicacao.Write(ComunicaoSerial.LIGAR_BOMBA);
+                }
+                else
+                {
+                    botaoBomba.Text = "Desligado";
+                    botaoBomba.BackColor = Color.Red;
+                    comunicacao.Write(ComunicaoSerial.DESLIGAR_BOMBA);
+                }
             }
-            else
+            catch(Exception ecx)
             {
-                botaoBomba.Text = "Desligado";
-                botaoBomba.BackColor = Color.Red;
-                comunicacao.Write(ComunicaoSerial.DESLIGAR_BOMBA);
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + ecx.Message, "Erro");
             }
         }
 
         private void botaoMotor_Click(object sender, EventArgs e)
         {
-            if (botaoMotor.BackColor == Color.Red)
+            try
             {
-                botaoMotor.Text = "Ligado";
-                botaoMotor.BackColor = Color.Green;
-                comunicacao.Write(ComunicaoSerial.LIGAR_MOTOR);
+                if (botaoMotor.BackColor == Color.Red)
+                {
+                    botaoMotor.Text = "Ligado";
+                    botaoMotor.BackColor = Color.Green;
+                    comunicacao.Write(ComunicaoSerial.LIGAR_MOTOR);
+                }
+                else
+                {
+                    botaoMotor.Text = "Desligado";
+                    botaoMotor.BackColor = Color.Red;
+                    comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
+                }
             }
-            else
+            catch (Exception ece)
             {
-                botaoMotor.Text = "Desligado";
-                botaoMotor.BackColor = Color.Red;
-                comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + ece.Message, "Erro");
             }
         }
 
         private void botaoAtualizarSerial_Click(object sender, EventArgs e)
         {
-            //capturo todas as portas serias contidas no computador
-            String[] portas = serialPorta.listarPortasSeriais();
-            //limpo a lista de portas presento no checkbox
-            listaPortas.Items.Clear();
-            //itero toda a lista
-            foreach (String port in portas)
+            try
             {
-                // adiciono ao checkbox
-                listaPortas.Items.Add(port);
+                //capturo todas as portas serias contidas no computador
+                String[] portas = serialPorta.listarPortasSeriais();
+                //limpo a lista de portas presento no checkbox
+                listaPortas.Items.Clear();
+                //itero toda a lista
+                foreach (String port in portas)
+                {
+                    // adiciono ao checkbox
+                    listaPortas.Items.Add(port);
+                }
+                //seleciono a primeira posicao do checkbox
+                if (listaPortas.Items.Count > 0)
+                {
+                    listaPortas.SelectedIndex = 0;
+                }
+                // repinto o checkbox
+                listaPortas.Refresh();
             }
-            //seleciono a primeira posicao do checkbox
-            if (listaPortas.Items.Count > 0)
+            catch(Exception ecc)
             {
-                listaPortas.SelectedIndex = 0;
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + ecc.Message, "Erro");
+            
             }
-            // repinto o checkbox
-            listaPortas.Refresh();
         }
 
         // funcao executada quando o formulario é fechado
         private void FormularioPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+            }
+            catch(Exception epx)
+            {
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + epx.Message, "Erro");
+            }
         }
 
         // funcao executada quando o botao ativar está ativa
         private void botaoAtivar_Click(object sender, EventArgs e)
         {
-            if (botaoAtivar.BackColor == Color.Red)
+            try
             {
-                botaoAtivar.Text = "Ligado";
-                botaoAtivar.BackColor = Color.Green;
-                serial = comunicacao.IsOpen;
-                if (serial)
+                if (botaoAtivar.BackColor == Color.Red)
                 {
-                    comunicacao.Write(ComunicaoSerial.START); // envio o comando para conectar ao pic
-                    ThreadComunicao.RunWorkerAsync(); // inicio a thread que irá carregar o nivel da agua
+                    botaoAtivar.Text = "Ligado";
+                    botaoAtivar.BackColor = Color.Green;
+                    if (comunicacao.IsOpen)
+                    {
+                        comunicacao.Write(ComunicaoSerial.START); // envio o comando para conectar ao pic
+                        ThreadComunicao.RunWorkerAsync(); // inicio a thread que irá carregar o nivel da agua
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
+                    botaoAtivar.Text = "Desligado";
+                    botaoAtivar.BackColor = Color.Red;
+                    ThreadComunicao.CancelAsync();
+                    comunicacao.Write(ComunicaoSerial.RESET); // envio do comando para desligar o pic
+                    comunicacao.Close();
+                    if (!comunicacao.IsOpen)
+                    {
+                        MessageBox.Show("Comunicação serial encerrada com sucesso!", "Configuração");
+                        btnLigado.Enabled = true;
+                        btnDesligado.Enabled = false;
+                        botaoBomba.Enabled = false;
+                        botaoMotor.Enabled = false;
+                        conexao.Enabled = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
+                    }
                 }
             }
-            else
+            catch(Exception xp)
             {
-                botaoAtivar.Text = "Desligado";
-                botaoAtivar.BackColor = Color.Red;
-                comunicacao.Write(ComunicaoSerial.RESET); // envio do comando para desligar o pic
-                serial = !comunicacao.IsOpen;
-                if (!serial)
-                {
-
-                    comunicacao.Close();
-                    serial = false;
-                }
-                else
-                {
-                    MessageBox.Show("Não foi possivel efetuar a comunicação.Verifique!", "Configuração");
-                }
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + xp.Message, "Erro");
             }
         }
 
         // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente superior
         public void transfereSuperior(String text)
         {
-            if (this.nivelSuperiorText.InvokeRequired)
+            try
             {
-                this.nivelSuperiorText.Invoke((MethodInvoker)delegate()
+                if (this.nivelSuperiorText.InvokeRequired)
                 {
-                    transfereSuperior(text);
-                });
+                    this.nivelSuperiorText.Invoke((MethodInvoker)delegate()
+                    {
+                        transfereSuperior(text);
+                    });
+                }
+                else
+                {
+                    this.nivelSuperiorText.Text = text;
+                }
             }
-            else
+            catch (Exception exx)
             {
-                this.nivelSuperiorText.Text = text;
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + exx.Message, "Erro");
             }
         }
 
         // funcao responsavel por setar o texto lido dentro da thread para o campo que informa o nivel de agua no recipiente inferior
         public void transfereInferior(String text)
         {
-            if (this.nivelInferiorText.InvokeRequired)
+            try
             {
-                this.nivelInferiorText.Invoke((MethodInvoker)delegate()
+                if (this.nivelInferiorText.InvokeRequired)
                 {
-                    transfereInferior(text);
-                });
+                    this.nivelInferiorText.Invoke((MethodInvoker)delegate()
+         
+                    {
+                        transfereInferior(text);
+                    });
+                }
+                else
+                {
+                    this.nivelInferiorText.Text = text;
+                }
             }
-            else
+            catch(Exception exp)
             {
-                this.nivelInferiorText.Text = text;
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + exp.Message, "Erro");
             }
         }
 
@@ -368,87 +432,94 @@ namespace SistemaSupervisorio
 
         private void ThreadComunicao_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            // repasso o valor lido da serial para a avariavel
-            string valorLido = Convert.ToString(e.UserState);
-            // se a informação lida contiver o caractere S, que dizer que essa informação é referente ao nivel do reservatorio superior
-            if (valorLido.Contains("S"))
+            try
             {
-                String valorInteiro;
-                //removo o primeiro caractere lido da informação recebida da porta serial
-                String valor = valorLido.Substring(1, (valorLido.Length - 1));
 
-                //removo a parte decimal da string;
-                if (valor.IndexOf('.') < -1)
+                // repasso o valor lido da serial para a avariavel
+                string valorLido = Convert.ToString(e.UserState);
+                // se a informação lida contiver o caractere S, que dizer que essa informação é referente ao nivel do reservatorio superior
+                if (valorLido.Contains("S"))
                 {
-                    valorInteiro = valor;
-                }
-                else
-                {
-                    valorInteiro = valor.Substring(0, valor.IndexOf('.'));
-                }
+                    String valorInteiro;
+                    //removo o primeiro caractere lido da informação recebida da porta serial
+                    String valor = valorLido.Substring(1, (valorLido.Length - 1));
 
-                // transformo o valor lido em um inteiro
-                nivelReservatorioSuperior = Convert.ToInt32(valorInteiro);
-                // repasso o valor lido para o objeto verticalProgressBar
-                caixaAguaSuperior.Value = nivelReservatorioSuperior;
-                percentualSuperior = Convert.ToString(nivelReservatorioSuperior);
-                // escrevo no campo de texto
-                transfereSuperior(percentualSuperior + " %");
-            }
-            // se a informação lida convetiver o caractere I, que dizer que essa informação é referente ao nivel do reservatorio inferior
-            else if (valorLido.Contains("I"))
-            {
-                String valorInteiro;
-                //removo o primeiro caractere lido da informação recebida da porta serial
-                String valor = valorLido.Substring(1, (valorLido.Length - 1));
+                    //removo a parte decimal da string;
+                    if (valor.IndexOf('.') < -1)
+                    {
+                        valorInteiro = valor;
+                    }
+                    else
+                    {
+                        valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                    }
 
-                //removo a parte decimal da string;
-                if (valor.IndexOf('.') < -1)
-                {
-                    valorInteiro = valor;
+                    // transformo o valor lido em um inteiro
+                    nivelReservatorioSuperior = Convert.ToInt32(valorInteiro);
+                    // repasso o valor lido para o objeto verticalProgressBar
+                    caixaAguaSuperior.Value = nivelReservatorioSuperior;
+                    percentualSuperior = Convert.ToString(nivelReservatorioSuperior);
+                    // escrevo no campo de texto
+                    transfereSuperior(percentualSuperior + " %");
                 }
-                else
+                // se a informação lida convetiver o caractere I, que dizer que essa informação é referente ao nivel do reservatorio inferior
+                else if (valorLido.Contains("I"))
                 {
-                    valorInteiro = valor.Substring(0, valor.IndexOf('.'));
-                }
+                    String valorInteiro;
+                    //removo o primeiro caractere lido da informação recebida da porta serial
+                    String valor = valorLido.Substring(1, (valorLido.Length - 1));
 
-                // transformo o valor lido em um inteiro
-                nivelReservatorioInferior = Convert.ToInt32(valorInteiro);
-                // repasso o valor lido para o objeto verticalProgressBar
-                caixaAguaInferior.Value = nivelReservatorioInferior;
-                percentualInferior = Convert.ToString(nivelReservatorioInferior);
-                // escrevo no campo de texto
-                transfereInferior(percentualInferior + " %");
-            }
-            else if (valorLido.Contains("B"))
+                    //removo a parte decimal da string;
+                    if (valor.IndexOf('.') < -1)
+                    {
+                        valorInteiro = valor;
+                    }
+                    else
+                    {
+                        valorInteiro = valor.Substring(0, valor.IndexOf('.'));
+                    }
+
+                    // transformo o valor lido em um inteiro
+                    nivelReservatorioInferior = Convert.ToInt32(valorInteiro);
+                    // repasso o valor lido para o objeto verticalProgressBar
+                    caixaAguaInferior.Value = nivelReservatorioInferior;
+                    percentualInferior = Convert.ToString(nivelReservatorioInferior);
+                    // escrevo no campo de texto
+                    transfereInferior(percentualInferior + " %");
+                }
+                else if (valorLido.Contains("B"))
+                {
+                    botaoBomba.Text = "Ligado";
+                    botaoBomba.BackColor = Color.Green;
+                }
+                else if (valorLido.Contains("b"))
+                {
+                    botaoBomba.Text = "Desligado";
+                    botaoBomba.BackColor = Color.Red;
+                }
+                else if (valorLido.Contains("M"))
+                {
+                    botaoMotor.Text = "Ligado";
+                    botaoMotor.BackColor = Color.Green;
+                }
+                else if (valorLido.Contains("m"))
+                {
+                    botaoMotor.Text = "Desligado";
+                    botaoMotor.BackColor = Color.Red;
+                }
+                else if (valorLido.Contains("L"))
+                {
+                    botaoAtivar.Text = "Ligado";
+                    botaoAtivar.BackColor = Color.Green;
+                }
+                else if (valorLido.Contains("l"))
+                {
+                    botaoAtivar.Text = "Desligado";
+                    botaoAtivar.BackColor = Color.Red;
+                }
+            }catch(Exception xe)
             {
-                botaoBomba.Text = "Ligado";
-                botaoBomba.BackColor = Color.Green;
-            }
-            else if (valorLido.Contains("b"))
-            {
-                botaoBomba.Text = "Desligado";
-                botaoBomba.BackColor = Color.Red;
-            }
-            else if (valorLido.Contains("M"))
-            {
-                botaoMotor.Text = "Ligado";
-                botaoMotor.BackColor = Color.Green;
-            }
-            else if (valorLido.Contains("m"))
-            {
-                botaoMotor.Text = "Desligado";
-                botaoMotor.BackColor = Color.Red;
-            }
-            else if (valorLido.Contains("L"))
-            {
-                botaoAtivar.Text = "Ligado";
-                botaoAtivar.BackColor = Color.Green;
-            }
-            else if (valorLido.Contains("l"))
-            {
-                botaoAtivar.Text = "Desligado";
-                botaoAtivar.BackColor = Color.Red;
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + xe.Message, "Erro");
             }
         }
 
@@ -456,6 +527,7 @@ namespace SistemaSupervisorio
         {
             try
             {
+                listaPortas.Refresh();
                 // retorno uma lista de portas seriais configuradas no computador
                 String[] retorno = SerialPort.GetPortNames();
                 // itero toda a lista de portas instanciadas
