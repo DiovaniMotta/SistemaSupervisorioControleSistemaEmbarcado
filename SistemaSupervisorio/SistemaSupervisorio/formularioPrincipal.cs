@@ -185,8 +185,8 @@ namespace SistemaSupervisorio
                     System.Windows.Forms.DialogResult.Yes)
                 {
                     // envio os comandos para desligar o motor
-                    comunicacao.Write(ComunicaoSerial.DESLIGAR_BOMBA);
-                    comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
+                    comunicacao.Write(""+ComunicaoSerial.LIGAR_BOMBA+"");
+                    //comunicacao.Write(ComunicaoSerial.DESLIGAR_MOTOR);
 
                     ThreadComunicao.CancelAsync(); // encerro a e
                     // encerro a comunicao serial
@@ -420,6 +420,7 @@ namespace SistemaSupervisorio
                     if (comunicacao.BytesToRead > 0) // se houverem bits a serem recebidos da serial
                     {
                         string palavra = comunicacao.ReadLine(); // leio a informação do canal serial
+                        MessageBox.Show(palavra);
                         ThreadComunicao.ReportProgress(0, palavra);//se for ler uma linha inteira.
                     }
                 }
@@ -517,7 +518,8 @@ namespace SistemaSupervisorio
                     botaoAtivar.Text = "Desligado";
                     botaoAtivar.BackColor = Color.Red;
                 }
-            }catch(Exception xe)
+            }
+            catch(Exception xe)
             {
                 MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + xe.Message, "Erro");
             }
@@ -527,6 +529,7 @@ namespace SistemaSupervisorio
         {
             try
             {
+                listaPortas.Items.Clear();
                 listaPortas.Refresh();
                 // retorno uma lista de portas seriais configuradas no computador
                 String[] retorno = SerialPort.GetPortNames();
