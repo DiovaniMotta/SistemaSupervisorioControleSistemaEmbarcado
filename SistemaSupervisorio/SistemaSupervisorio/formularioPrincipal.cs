@@ -420,7 +420,6 @@ namespace SistemaSupervisorio
                     if (comunicacao.BytesToRead > 0) // se houverem bits a serem recebidos da serial
                     {
                         string palavra = comunicacao.ReadLine(); // leio a informação do canal serial
-                        MessageBox.Show(palavra);
                         ThreadComunicao.ReportProgress(0, palavra);//se for ler uma linha inteira.
                     }
                 }
@@ -435,7 +434,6 @@ namespace SistemaSupervisorio
         {
             try
             {
-
                 // repasso o valor lido da serial para a avariavel
                 string valorLido = Convert.ToString(e.UserState);
                 // se a informação lida contiver o caractere S, que dizer que essa informação é referente ao nivel do reservatorio superior
