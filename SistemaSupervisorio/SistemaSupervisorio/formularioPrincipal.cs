@@ -444,9 +444,9 @@ namespace SistemaSupervisorio
                     String valor = valorLido.Substring(1, (valorLido.Length - 1));
 
                     //removo a parte decimal da string;
-                    if (valor.IndexOf('.') < -1)
+                    if (valor.IndexOf('.') < 0)
                     {
-                        valorInteiro = valor;
+                        valorInteiro = valor.Substring(0, (valor.Length - 1));
                     }
                     else
                     {
