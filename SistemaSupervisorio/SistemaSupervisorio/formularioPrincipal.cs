@@ -340,9 +340,11 @@ namespace SistemaSupervisorio
                 {
                     botaoAtivar.Text = "Desligado";
                     botaoAtivar.BackColor = Color.Red;
-                    ThreadComunicao.CancelAsync();
                     comunicacao.Write(ComunicaoSerial.RESET); // envio do comando para desligar o pic
-                    comunicacao.Close();
+                    comunicacao.Close(); // encerro a execução
+                    ThreadComunicao.Dispose();
+                    ThreadComunicao.CancelAsync(); // cancelo a execução da thread
+
                     if (!comunicacao.IsOpen)
                     {
                         MessageBox.Show("Comunicação serial encerrada com sucesso!", "Configuração");
@@ -358,9 +360,9 @@ namespace SistemaSupervisorio
                     }
                 }
             }
-            catch(Exception xp)
+            catch(Exception xep)
             {
-                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + xp.Message, "Erro");
+                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + xep.Message, "Erro");
             }
         }
 
@@ -424,10 +426,7 @@ namespace SistemaSupervisorio
                     }
                 }
             }
-            catch (Exception ee)
-            {
-                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + ee.Message, "Erro");
-            }
+            catch {}
         }
 
         private void ThreadComunicao_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -469,9 +468,9 @@ namespace SistemaSupervisorio
                     String valor = valorLido.Substring(1, (valorLido.Length - 1));
 
                     //removo a parte decimal da string;
-                    if (valor.IndexOf('.') < -1)
+                    if (valor.IndexOf('.') < 0)
                     {
-                        valorInteiro = valor;
+                        valorInteiro = valor.Substring(0, (valor.Length - 1));
                     }
                     else
                     {
@@ -482,7 +481,14 @@ namespace SistemaSupervisorio
                     nivelReservatorioInferior = Convert.ToInt32(valorInteiro);
                     // repasso o valor lido para o objeto verticalProgressBar
                     caixaAguaInferior.Value = nivelReservatorioInferior;
-                    percentualInferior = Convert.ToString(nivelReservatorioInferior);
+                    // se o nivel do reservatorio superior for maior que 100%
+                    if(nivelReservatorioSuperior >= 100)
+                    {
+                        botaoBomba.Text = "Desligado";
+                        botaoBomba.BackColor = Color.Red;
+                        botaoBomba.Refresh();
+                    }
+                     percentualInferior = Convert.ToString(nivelReservatorioInferior);
                     // escrevo no campo de texto
                     transfereInferior(percentualInferior + " %");
                 }
@@ -490,21 +496,25 @@ namespace SistemaSupervisorio
                 {
                     botaoBomba.Text = "Ligado";
                     botaoBomba.BackColor = Color.Green;
+                    botaoBomba.Refresh();
                 }
                 else if (valorLido.Contains("b"))
                 {
                     botaoBomba.Text = "Desligado";
                     botaoBomba.BackColor = Color.Red;
+                    botaoBomba.Refresh();
                 }
                 else if (valorLido.Contains("M"))
                 {
                     botaoMotor.Text = "Ligado";
                     botaoMotor.BackColor = Color.Green;
+                    botaoMotor.Refresh();
                 }
                 else if (valorLido.Contains("m"))
                 {
                     botaoMotor.Text = "Desligado";
                     botaoMotor.BackColor = Color.Red;
+                    botaoMotor.Refresh();
                 }
                 else if (valorLido.Contains("L"))
                 {
@@ -517,10 +527,7 @@ namespace SistemaSupervisorio
                     botaoAtivar.BackColor = Color.Red;
                 }
             }
-            catch(Exception xe)
-            {
-                MessageBox.Show("Ocorreu um erro ao executar a função. Erro retornado :" + xe.Message, "Erro");
-            }
+            catch{}
         }
 
         private void botaoAtualizarSerial_Click_1(object sender, EventArgs e)
